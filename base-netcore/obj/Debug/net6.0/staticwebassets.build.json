@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Fd627c9CUT3WUbc367J4DJRHlPL14Zv/KILbk5c3kQ0=",
+  "Source": "base-netcore",
+  "BasePath": "_content/base-netcore",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
