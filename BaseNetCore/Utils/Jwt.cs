@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
- 
+
 
 namespace BaseNetCore.Utils
 {
@@ -12,7 +12,7 @@ namespace BaseNetCore.Utils
     {
         public static string ACCESS_TOKEN = "access_token";
         public static string REFRESH_TOKEN = "refresh_token";
-
+        public static string SECRET_KEY = "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING";
         public static CookieOptions GetConfigOption()
         {
             var cookieOptions = new CookieOptions
@@ -86,5 +86,22 @@ namespace BaseNetCore.Utils
             return HttpUtility.UrlDecode(url);
         }
 
+        public static string GetIdByToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(Jwt.SECRET_KEY);
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken validatedToken);
+
+            var jwtToken = (JwtSecurityToken)validatedToken;
+            var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
+            return userCredentialString;
+        }
     }
 }

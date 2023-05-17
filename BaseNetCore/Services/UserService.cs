@@ -1,10 +1,8 @@
 ﻿
 using BaseNetCore.Utils;
 using BaseNetCore.Infrastructure.Helper;
-using BaseNetCore.Infrastructure.Helper.Constant;
-using BaseNetCore.Infrastructure.Repositories;
+using BaseNetCore.Infrastructure.Helper.Constant; 
 using BaseNetCore.Infrastructure.Schemas;
-using System.Text;
 
 namespace BaseNetCore.Services
 {
@@ -20,18 +18,16 @@ namespace BaseNetCore.Services
 
     public class UserService : IUserService
     {
-        private readonly IUserRepository userRepository;
-        private readonly IPermRepository permRepository;
 
-        public UserService(IUserRepository _userRepository, IPermRepository _permRepository)
+        private readonly DataContext context;
+        public UserService()
         {
-            this.userRepository = _userRepository;
-            this.permRepository = _permRepository;
+            this.context =  new DataContext();
         }
 
         public Response GetUser(string username)
         {
-            User user = userRepository.GetByName(username);
+            User user = context.Users.Where(x=>x.UserName.Equals(username)).FirstOrDefault();
             return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
         }
 
@@ -51,7 +47,7 @@ namespace BaseNetCore.Services
 
         public Response Get(int id)
         {
-            User user = userRepository.Get(id);
+            User user = context.Users.Find(id);
             return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
         }
 
@@ -67,16 +63,16 @@ namespace BaseNetCore.Services
 
         public Response UpdateLoginTime(int userId)
         {
-            User user = userRepository.Get(userId);
+            User user = context.Users.Find(userId);
             user.LastLogin = DateTime.UtcNow;
             return new Response(Message.SUCCESS, user);
         }
 
         public Response SetRefreshToken(string refreshToken, int userId)
         {
-            User user = userRepository.Get(userId);
+            User user = context.Users.Find(userId);
             user.HashRefreshToken = refreshToken;
-            userRepository.Update(user);
+            context.Users.Update(user);
             return new Response(Message.SUCCESS, user);
         }
 

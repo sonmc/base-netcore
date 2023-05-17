@@ -1,24 +1,20 @@
 ﻿using BaseNetCore.Utils;
 using BaseNetCore.Infrastructure.Helper;
 using BaseNetCore.Infrastructure.Helper.Constant;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
+using BaseNetCore.Services;
 
 namespace BaseNetCore.UseCase.AuthUseCase
 {
     [ApiController]
     [Route("auth")]
     public class AuthController : ControllerBase
-    {
-        readonly IAuthFlow flow;
-
-        public AuthController(IAuthFlow _flow)
-        {
-            flow = _flow;
-        }
-
+    { 
+          
         [HttpPost("login")]
         public IActionResult Login([FromBody] AuthPresenter model)
         {
+            AuthFlow flow = new AuthFlow(new UserService());
             Response response = flow.Login(model.Username, model.Password);
             if (response.Status == Message.ERROR)
             {
@@ -35,6 +31,7 @@ namespace BaseNetCore.UseCase.AuthUseCase
         [HttpPost("refresh-token")]
         public IActionResult RefreshToken([FromBody] TokenPresenter tokenParam)
         {
+            AuthFlow flow = new AuthFlow(new UserService());
             if (string.IsNullOrWhiteSpace(tokenParam.AccessToken) || string.IsNullOrWhiteSpace(tokenParam.RefreshToken))
             {
                 return Unauthorized();

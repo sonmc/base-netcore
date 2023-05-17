@@ -1,6 +1,6 @@
 ﻿ 
-using BaseNetCore.Infrastructure.Helper;
-using BaseNetCore.Infrastructure.Repositories;
+using BaseNetCore.Infrastructure.Helper; 
+using BaseNetCore.Infrastructure.Schemas;
 
 namespace BaseNetCore.Services
 {
@@ -11,11 +11,10 @@ namespace BaseNetCore.Services
 
     public class PermService : IPermService
     {
-        private readonly IPermRepository repository;
-
-        public PermService(IPermRepository repository)
+        private readonly DataContext context;
+        public PermService()
         {
-            this.repository = repository;
+            this.context = new DataContext() ;
         }
 
         public Response Get()

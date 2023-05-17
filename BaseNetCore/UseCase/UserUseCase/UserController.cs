@@ -1,5 +1,6 @@
 ﻿using BaseNetCore.Infrastructure.Helper;
 using BaseNetCore.Infrastructure.Helper.Constant;
+using BaseNetCore.Services;
 using BaseNetCore.Utils;
 using Microsoft.AspNetCore.Mvc; 
 
@@ -10,16 +11,11 @@ namespace BaseNetCore.UseCase.UserUseCase
     public class UserController : ControllerBase
     {
 
-        readonly IUserFlow flow;
-
-        public UserController(IUserFlow _flow)
-        {
-            flow = _flow;
-        }
-
+     
         [HttpGet("get-current-user")]
         public IActionResult GetCurentUser()
         {
+            UserFlow flow = new UserFlow(new UserService());
             string token = Request.Cookies[Jwt.ACCESS_TOKEN];
             if (string.IsNullOrEmpty(token))
             {

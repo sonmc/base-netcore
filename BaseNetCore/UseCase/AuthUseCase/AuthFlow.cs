@@ -4,26 +4,18 @@ using BaseNetCore.Infrastructure.Helper;
 using BaseNetCore.Infrastructure.Helper.Constant;
 using BaseNetCore.Infrastructure.Schemas;
 using BaseNetCore.Services;
-using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace BaseNetCore.UseCase.AuthUseCase
 {
-    public interface IAuthFlow
+ 
+    public class AuthFlow 
     {
-        Response Login(string username, string password);
-        Response RefreshToken(string accessToken, string refreshToken);
-    }
-
-    public class AuthFlow : IAuthFlow
-    {
-        readonly IUserService userService;
-        private readonly AppSettings appSettings;
-        public AuthFlow(IUserService _service, IOptions<AppSettings> _appSettings)
+        readonly IUserService userService; 
+        public AuthFlow(IUserService _service)
         {
-            userService = _service;
-            appSettings = _appSettings.Value;
+            userService = _service; 
         }
 
         public Response Login(string username, string password)
@@ -31,15 +23,15 @@ namespace BaseNetCore.UseCase.AuthUseCase
             Response response = userService.GetUser(username);
             if (response.Status == Message.ERROR)
             {
-                // throw new UnauthorizedException("Invalid account or password");
+                return response;
             }
             User user = (User)response.Result;
             Response res = userService.Compare(user.Password, password);
             if (res.Status == Message.ERROR)
             {
-                // throw new UnauthorizedException("Invalid account or password");
+                return response;
             }
-            string accessToken = Jwt.GenerateAccessToken(user.Id, appSettings.Secret);
+            string accessToken = Jwt.GenerateAccessToken(user.Id, Jwt.SECRET_KEY);
             string refreshToken = Jwt.GenerateRefreshToken();
             userService.SetRefreshToken(refreshToken, user.Id);
             userService.UpdateLoginTime(user.Id);
@@ -49,7 +41,7 @@ namespace BaseNetCore.UseCase.AuthUseCase
 
         public Response RefreshToken(string accessToken, string refreshToken)
         {
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(Jwt.SECRET_KEY);
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadJwtToken(accessToken);
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
@@ -59,7 +51,7 @@ namespace BaseNetCore.UseCase.AuthUseCase
             bool isMatched = user.HashRefreshToken.Equals(refreshToken);
             if (isMatched)
             {
-                var newToken = Jwt.GenerateAccessToken(userId, appSettings.Secret);
+                var newToken = Jwt.GenerateAccessToken(userId, Jwt.SECRET_KEY);
                 var newRefreshToken = Jwt.GenerateRefreshToken();
 
                 return new Response(Message.SUCCESS, new
