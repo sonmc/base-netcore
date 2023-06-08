@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 namespace BaseNetCore.Src.Services.Schemas
 {
-  public class Permission
+  public class Perm
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -10,7 +10,7 @@ namespace BaseNetCore.Src.Services
   {
     Response GetUser(string username);
     Response Get(int id);
-    Response CheckPermission(User user, string actionName);
+    Response CheckPermission(UserSchema user, string actionName);
 
   }
 
@@ -25,11 +25,11 @@ namespace BaseNetCore.Src.Services
 
     public Response GetUser(string username)
     {
-      User user = context.Users.Where(x => x.UserName.Equals(username)).FirstOrDefault();
+      UserSchema user = context.Users.Where(x => x.UserName.Equals(username)).FirstOrDefault();
       return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
     }
 
-    public Response CheckPermission(User user, string actionName)
+    public Response CheckPermission(UserSchema user, string actionName)
     {
       bool isAccess = false;
       //List<Permission> apis = permRepository.Get((int)user.RoleId);
@@ -45,20 +45,20 @@ namespace BaseNetCore.Src.Services
 
     public Response Get(int id)
     {
-      User user = context.Users.Find(id);
+      UserSchema user = context.Users.Find(id);
       return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
     }
 
     public Response UpdateLoginTime(int userId)
     {
-      User user = context.Users.Find(userId);
+      UserSchema user = context.Users.Find(userId);
       user.LastLogin = DateTime.UtcNow;
       return new Response(Message.SUCCESS, user);
     }
 
     public Response SetRefreshToken(string refreshToken, int userId)
     {
-      User user = context.Users.Find(userId);
+      UserSchema user = context.Users.Find(userId);
       user.HashRefreshToken = refreshToken;
       context.Users.Update(user);
       return new Response(Message.SUCCESS, user);

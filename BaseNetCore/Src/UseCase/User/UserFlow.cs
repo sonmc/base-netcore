@@ -29,7 +29,7 @@ namespace BaseNetCore.Src.UseCase.User
       {
         return new Response(Message.ERROR, null);
       }
-      User user = (User)response.Result;
+      UserSchema user = (UserSchema)response.Result;
       return new Response(Message.SUCCESS, user);
 
 

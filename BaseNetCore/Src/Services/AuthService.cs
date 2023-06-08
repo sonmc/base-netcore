@@ -21,14 +21,14 @@ namespace BaseNetCore.Src.Services
     }
     public Response UpdateLoginTime(int userId)
     {
-      User user = context.Users.Find(userId);
+      UserSchema user = context.Users.Find(userId);
       user.LastLogin = DateTime.UtcNow;
       return new Response(Message.SUCCESS, user);
     }
 
     public Response SetRefreshToken(string refreshToken, int userId)
     {
-      User user = context.Users.Find(userId);
+      UserSchema user = context.Users.Find(userId);
       user.HashRefreshToken = refreshToken;
       context.Users.Update(user);
       return new Response(Message.SUCCESS, user);

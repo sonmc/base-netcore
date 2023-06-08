@@ -7,10 +7,9 @@ namespace BaseNetCore.Src.Services.Schemas
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int UserId { get; set; }
-    public int RoleId { get; set; }
+    public int UserRoleId { get; set; } 
 
-    public User User { get; set; }
-    public Role Role { get; set; }
+    public UserSchema User { get; set; }
+    public RoleSchema Role { get; set; }
   }
 }

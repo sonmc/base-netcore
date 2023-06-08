@@ -8,10 +8,8 @@ namespace BaseNetCore.Src.UseCase.User
 {
   [ApiController]
   [Route("users")]
-  public class UserController : ControllerBase
+  public class UserCtrl : ControllerBase
   {
-
-
     [HttpGet("get-current-user")]
     public IActionResult GetCurentUser()
     {

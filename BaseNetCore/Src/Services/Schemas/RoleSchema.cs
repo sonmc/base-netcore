@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BaseNetCore.Src.Services.Schemas
 {
-  public class Role
+  public class RoleSchema
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -8,11 +8,8 @@ namespace BaseNetCore.Src.Services.Schemas
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-
-    public int RoleId { get; set; }
-    public int PermId { get; set; }
-
-    public Role Role { get; set; }
-    public Permission Permission { get; set; }
+          
+    public RoleSchema Role { get; set; }
+    public Perm Permission { get; set; }
   }
 }
