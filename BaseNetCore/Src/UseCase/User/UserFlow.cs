@@ -1,16 +1,16 @@
-﻿using BaseNetCore.Src.Infrastructure.Helper;
-using BaseNetCore.Src.Infrastructure.Helper.Constant;
-using BaseNetCore.Src.Infrastructure.Schemas;
+﻿using BaseNetCore.Src.Helper;
+using BaseNetCore.Src.Helper.Constant;
 using BaseNetCore.Src.Services;
+using BaseNetCore.Src.Services.Schemas;
 using BaseNetCore.Src.Utils;
 
-namespace BaseNetCore.Src.UseCase.UserUseCase
+namespace BaseNetCore.Src.UseCase.User
 {
 
   public class UserFlow
   {
-    readonly IUserService userService;
-    public UserFlow(IUserService _service)
+    readonly IUser userService;
+    public UserFlow(IUser _service)
     {
       userService = _service;
     }

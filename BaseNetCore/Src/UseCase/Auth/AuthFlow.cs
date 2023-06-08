@@ -1,21 +1,22 @@
 ﻿
 using BaseNetCore.Src.Utils;
-using BaseNetCore.Src.Infrastructure.Helper;
-using BaseNetCore.Src.Infrastructure.Helper.Constant;
-using BaseNetCore.Src.Infrastructure.Schemas;
+using BaseNetCore.Src.Helper;
+using BaseNetCore.Src.Helper.Constant;
 using BaseNetCore.Src.Services;
+using BaseNetCore.Src.Services.Schemas;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace BaseNetCore.Src.UseCase.AuthUseCase
+namespace BaseNetCore.Src.UseCase.Auth
 {
-
   public class AuthFlow
   {
-    readonly IUserService userService;
-    public AuthFlow(IUserService _service)
+    readonly IUser userService;
+    readonly IAuth authService;
+    public AuthFlow(IUser _userService, IAuth _authService)
     {
-      userService = _service;
+      userService = _userService;
+      authService = _authService;
     }
 
     public Response Login(string username, string password)
@@ -26,15 +27,15 @@ namespace BaseNetCore.Src.UseCase.AuthUseCase
         return response;
       }
       User user = (User)response.Result;
-      Response res = userService.Compare(user.Password, password);
-      if (res.Status == Message.ERROR)
+      bool isMatched = Jwt.Compare(user.Password, password);
+      if (!isMatched)
       {
-        return response;
+        return new Response("error", "");
       }
-      string accessToken = Jwt.GenerateAccessToken(user.Id, Jwt.SECRET_KEY);
+      string accessToken = Jwt.GenerateAccessToken(user.Id);
       string refreshToken = Jwt.GenerateRefreshToken();
-      userService.SetRefreshToken(refreshToken, user.Id);
-      userService.UpdateLoginTime(user.Id);
+      authService.SetRefreshToken(refreshToken, user.Id);
+      authService.UpdateLoginTime(user.Id);
 
       return new Response(Message.SUCCESS, new TokenPresenter { AccessToken = accessToken, RefreshToken = refreshToken });
     }
@@ -51,7 +52,7 @@ namespace BaseNetCore.Src.UseCase.AuthUseCase
       bool isMatched = user.HashRefreshToken.Equals(refreshToken);
       if (isMatched)
       {
-        var newToken = Jwt.GenerateAccessToken(userId, Jwt.SECRET_KEY);
+        var newToken = Jwt.GenerateAccessToken(userId);
         var newRefreshToken = Jwt.GenerateRefreshToken();
 
         return new Response(Message.SUCCESS, new

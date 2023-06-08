@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace BaseNetCore.Src.Infrastructure.Schemas
+namespace BaseNetCore.Src.Services.Schemas
 {
   public class BaseSchema
   {

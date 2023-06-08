@@ -1,20 +1,19 @@
 ﻿using BaseNetCore.Src.Utils;
-using BaseNetCore.Src.Infrastructure.Helper;
-using BaseNetCore.Src.Infrastructure.Helper.Constant;
+using BaseNetCore.Src.Helper;
+using BaseNetCore.Src.Helper.Constant;
 using Microsoft.AspNetCore.Mvc;
 using BaseNetCore.Src.Services;
 
-namespace BaseNetCore.Src.UseCase.AuthUseCase
+namespace BaseNetCore.Src.UseCase.Auth
 {
   [ApiController]
   [Route("auth")]
   public class AuthController : ControllerBase
   {
-
     [HttpPost("login")]
     public IActionResult Login([FromBody] AuthPresenter model)
     {
-      AuthFlow flow = new AuthFlow(new UserService());
+      AuthFlow flow = new AuthFlow(new UserService(), new AuthService());
       Response response = flow.Login(model.Username, model.Password);
       if (response.Status == Message.ERROR)
       {
@@ -24,14 +23,13 @@ namespace BaseNetCore.Src.UseCase.AuthUseCase
       CookieOptions cookieOptions = Jwt.GetConfigOption();
       Response.Cookies.Append(Jwt.ACCESS_TOKEN, token.AccessToken, cookieOptions);
       Response.Cookies.Append(Jwt.REFRESH_TOKEN, token.RefreshToken);
-
       return Ok();
     }
 
     [HttpPost("refresh-token")]
     public IActionResult RefreshToken([FromBody] TokenPresenter tokenParam)
     {
-      AuthFlow flow = new AuthFlow(new UserService());
+      AuthFlow flow = new AuthFlow(new UserService(), new AuthService());
       if (string.IsNullOrWhiteSpace(tokenParam.AccessToken) || string.IsNullOrWhiteSpace(tokenParam.RefreshToken))
       {
         return Unauthorized();

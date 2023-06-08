@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace BaseNetCore.Src.UseCase.AuthUseCase
+namespace BaseNetCore.Src.UseCase.Auth
 {
   public class AuthPresenter
   {

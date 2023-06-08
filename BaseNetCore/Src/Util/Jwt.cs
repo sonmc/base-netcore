@@ -25,10 +25,10 @@ namespace BaseNetCore.Src.Utils
       return cookieOptions;
     }
 
-    public static string GenerateAccessToken(int userId, string secret)
+    public static string GenerateAccessToken(int userId)
     {
       var tokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.ASCII.GetBytes(secret);
+      var key = Encoding.ASCII.GetBytes(SECRET_KEY);
       var tokenDescriptor = new SecurityTokenDescriptor
       {
         Subject = new ClaimsIdentity(new[] { new Claim("id", userId.ToString()) }),
@@ -84,6 +84,12 @@ namespace BaseNetCore.Src.Utils
     public static string Decode(string url)
     {
       return HttpUtility.UrlDecode(url);
+    }
+
+    public static bool Compare(string password, string userPassword)
+    {
+      string hash = Jwt.MD5Hash(password);
+      return hash.ToLower().Equals(userPassword.ToLower());
     }
 
     public static string GetIdByToken(string token)

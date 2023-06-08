@@ -1,5 +1,5 @@
-﻿using BaseNetCore.Src.Infrastructure.Helper;
-using BaseNetCore.Src.Infrastructure.Schemas;
+﻿using BaseNetCore.Src.Helper;
+using BaseNetCore.Src.Services.Schemas;
 using BaseNetCore.Src.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BaseNetCore.Src.Infrastructure.Schemas
+namespace BaseNetCore.Src.Services.Schemas
 {
   public partial class DataContext : DbContext
   {

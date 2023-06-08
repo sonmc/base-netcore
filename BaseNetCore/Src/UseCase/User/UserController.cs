@@ -1,10 +1,10 @@
-﻿using BaseNetCore.Src.Infrastructure.Helper;
-using BaseNetCore.Src.Infrastructure.Helper.Constant;
+﻿using BaseNetCore.Src.Helper;
+using BaseNetCore.Src.Helper.Constant;
 using BaseNetCore.Src.Services;
 using BaseNetCore.Src.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BaseNetCore.Src.UseCase.UserUseCase
+namespace BaseNetCore.Src.UseCase.User
 {
   [ApiController]
   [Route("users")]

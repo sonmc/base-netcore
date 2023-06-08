@@ -1,4 +1,4 @@
-﻿namespace BaseNetCore.Src.Infrastructure.Helper
+﻿namespace BaseNetCore.Src.Helper
 {
   public class AppSettings
   {

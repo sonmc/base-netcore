@@ -1,4 +1,4 @@
-﻿namespace BaseNetCore.Src.Infrastructure.Helper.Constant
+﻿namespace BaseNetCore.Src.Helper.Constant
 {
   public class Message
   {

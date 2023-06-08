@@ -1,5 +1,5 @@
 ﻿
-namespace BaseNetCore.Src.Infrastructure.Schemas
+namespace BaseNetCore.Src.Services.Schemas
 {
   public class User : BaseSchema
   {

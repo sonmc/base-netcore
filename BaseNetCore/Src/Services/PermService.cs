@@ -1,6 +1,6 @@
 ﻿
-using BaseNetCore.Src.Infrastructure.Helper;
-using BaseNetCore.Src.Infrastructure.Schemas;
+using BaseNetCore.Src.Helper;
+using BaseNetCore.Src.Services.Schemas;
 
 namespace BaseNetCore.Src.Services
 {
