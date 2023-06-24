@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BaseNetCore.Src.Utils
 {
-  public static class Jwt
+  public static class JwtUtil
   {
     public static string ACCESS_TOKEN = "access_token";
     public static string REFRESH_TOKEN = "refresh_token";
@@ -71,7 +71,7 @@ namespace BaseNetCore.Src.Utils
 
     public static Int32 DateTimeToUnixTimeStamp(DateTime dateTime)
     {
-      DateTime localDateTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTime, Time.TIMEZONE_ID.GMT0);
+      DateTime localDateTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTime, TimeUtil.TIMEZONE_ID.GMT0);
       Int32 unixTimestamp = (int)(localDateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
       return unixTimestamp;
     }
@@ -88,14 +88,14 @@ namespace BaseNetCore.Src.Utils
 
     public static bool Compare(string password, string userPassword)
     {
-      string hash = Jwt.MD5Hash(password);
+      string hash = JwtUtil.MD5Hash(password);
       return hash.ToLower().Equals(userPassword.ToLower());
     }
 
     public static string GetIdByToken(string token)
     {
       var tokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.ASCII.GetBytes(Jwt.SECRET_KEY);
+      var key = Encoding.ASCII.GetBytes(JwtUtil.SECRET_KEY);
       tokenHandler.ValidateToken(token, new TokenValidationParameters
       {
         ValidateIssuerSigningKey = true,

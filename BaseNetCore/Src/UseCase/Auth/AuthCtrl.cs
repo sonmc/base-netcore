@@ -25,9 +25,9 @@ namespace BaseNetCore.Src.UseCase.Auth
                 return Unauthorized();
             }
             TokenPresenter token = (TokenPresenter)response.Result;
-            CookieOptions cookieOptions = Jwt.GetConfigOption();
-            Response.Cookies.Append(Jwt.ACCESS_TOKEN, token.AccessToken, cookieOptions);
-            Response.Cookies.Append(Jwt.REFRESH_TOKEN, token.RefreshToken);
+            CookieOptions cookieOptions = JwtUtil.GetConfigOption();
+            Response.Cookies.Append(JwtUtil.ACCESS_TOKEN, token.AccessToken, cookieOptions);
+            Response.Cookies.Append(JwtUtil.REFRESH_TOKEN, token.RefreshToken);
             return Ok();
         }
 
@@ -44,17 +44,21 @@ namespace BaseNetCore.Src.UseCase.Auth
                 return Unauthorized();
             }
             TokenPresenter token = (TokenPresenter)response.Result;
-            CookieOptions cookieOptions = Jwt.GetConfigOption();
-            Response.Cookies.Append(Jwt.ACCESS_TOKEN, token.AccessToken, cookieOptions);
-            Response.Cookies.Append(Jwt.REFRESH_TOKEN, token.RefreshToken);
+            CookieOptions cookieOptions = JwtUtil.GetConfigOption();
+            Response.Cookies.Append(JwtUtil.ACCESS_TOKEN, token.AccessToken, cookieOptions);
+            Response.Cookies.Append(JwtUtil.REFRESH_TOKEN, token.RefreshToken);
             return Ok();
         }
 
         [HttpGet("logout")]
         public IActionResult Logout()
         {
-            string token = Request.Headers[Jwt.ACCESS_TOKEN];
-            Response.Cookies.Append(Jwt.ACCESS_TOKEN, null);
+            string token = Request.Headers[JwtUtil.ACCESS_TOKEN];
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+            Response.Cookies.Append(JwtUtil.ACCESS_TOKEN, null);
             return Ok();
         }
     }

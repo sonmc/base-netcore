@@ -27,13 +27,13 @@ namespace BaseNetCore.Src.UseCase.Auth
                 return response; 
             }
             UserSchema user = (UserSchema)response.Result;
-            bool isMatched = Jwt.Compare(password, user.Password);
+            bool isMatched = JwtUtil.Compare(password, user.Password);
             if (!isMatched)
             {
                 return new Response(Message.ERROR, new { });
             }
-            string accessToken = Jwt.GenerateAccessToken(user.Id);
-            string refreshToken = Jwt.GenerateRefreshToken();
+            string accessToken = JwtUtil.GenerateAccessToken(user.Id);
+            string refreshToken = JwtUtil.GenerateRefreshToken();
             authService.SetRefreshToken(refreshToken, user.Id);
             authService.UpdateLoginTime(user.Id);
             return new Response(Message.SUCCESS, new TokenPresenter { AccessToken = accessToken, RefreshToken = refreshToken });
@@ -41,7 +41,7 @@ namespace BaseNetCore.Src.UseCase.Auth
 
         public Response RefreshToken(string accessToken, string refreshToken)
         {
-            var key = Encoding.ASCII.GetBytes(Jwt.SECRET_KEY);
+            var key = Encoding.ASCII.GetBytes(JwtUtil.SECRET_KEY);
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadJwtToken(accessToken);
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
@@ -51,8 +51,8 @@ namespace BaseNetCore.Src.UseCase.Auth
             bool isMatched = user.HashRefreshToken.Equals(refreshToken);
             if (isMatched)
             {
-                var newToken = Jwt.GenerateAccessToken(userId);
-                var newRefreshToken = Jwt.GenerateRefreshToken();
+                var newToken = JwtUtil.GenerateAccessToken(userId);
+                var newRefreshToken = JwtUtil.GenerateRefreshToken();
 
                 return new Response(Message.SUCCESS, new
                 {

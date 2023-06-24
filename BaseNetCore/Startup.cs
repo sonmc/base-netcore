@@ -1,4 +1,5 @@
-﻿ 
+﻿
+using BaseNetCore.Middleware;
 using BaseNetCore.Src.Helper;
 using BaseNetCore.Src.Services.Schemas;
 using BaseNetCore.Src.Utils;
@@ -37,7 +38,7 @@ namespace BaseNetCore
             services.Configure<AppSettings>(appSettingsSection);
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(Jwt.SECRET_KEY);
+            var key = Encoding.ASCII.GetBytes(JwtUtil.SECRET_KEY);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,7 +73,7 @@ namespace BaseNetCore
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-           
+            app.UseMiddleware<RouteCaptureMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers(); 

@@ -1,6 +1,6 @@
 ﻿namespace BaseNetCore.Src.Utils
 {
-  public class Time
+  public class TimeUtil
   {
     public enum TIME_UNIX
     {
