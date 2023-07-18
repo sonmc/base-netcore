@@ -14,7 +14,6 @@
     public struct TIMEZONE_ID
     {
       public const string GMT7 = "SE Asia Standard Time";
-
       public const string GMT0 = "Greenwich Standard Time";
     }
   }

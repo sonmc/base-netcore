@@ -11,9 +11,7 @@ namespace BaseNetCore.Src.Services
         Response List();
         Response Create(UserSchema user);
         Response Delete(int id);
-        Response CheckPermission(UserSchema user, string actionName);
     }
-
     public class UserService : IUser
     {
 
@@ -29,18 +27,25 @@ namespace BaseNetCore.Src.Services
             return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
         }
 
-        public Response CheckPermission(UserSchema user, string actionName)
+        public Response List()
         {
-            bool isAccess = false;
-            //List<Permission> apis = permRepository.Get((int)user.RoleId);
-            //foreach (var a in apis)
-            //{
-            //    if (a.Name.ToLower().IndexOf(actionName.ToLower()) > -1)
-            //    {
-            //        isAccess = true;
-            //    }
-            //}
-            return new Response(Message.SUCCESS, isAccess);
+            var users = context.Users;
+            return new Response(Message.SUCCESS, users);
+        }
+
+        public Response Create(UserSchema u)
+        {
+            var user = context.Users.Add(u);
+            context.SaveChanges();
+            return new Response(Message.SUCCESS, user);
+        }
+
+        public Response Delete(int id)
+        {
+            var user = context.Users.Find(id);
+            context.Users.Remove(user);
+            context.SaveChanges();
+            return new Response(Message.SUCCESS, id);
         }
 
         public Response Get(int id)
@@ -64,25 +69,5 @@ namespace BaseNetCore.Src.Services
             return new Response(Message.SUCCESS, user);
         }
 
-        public Response List()
-        {
-            var users = context.Users;
-            return new Response(Message.SUCCESS, users);
-        }
-
-        public Response Create(UserSchema u)
-        {
-            var user = context.Users.Add(u);
-            context.SaveChanges();
-            return new Response(Message.SUCCESS, user);
-        }
-
-        public Response Delete(int id)
-        {
-            var user = context.Users.Find(id);
-            context.Users.Remove(user);
-            context.SaveChanges();
-            return new Response(Message.SUCCESS, id);
-        }
     }
 }

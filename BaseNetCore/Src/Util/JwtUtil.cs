@@ -5,7 +5,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-
 namespace BaseNetCore.Src.Utils
 {
   public static class JwtUtil

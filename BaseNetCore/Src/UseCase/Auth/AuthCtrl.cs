@@ -13,12 +13,13 @@ namespace BaseNetCore.Src.UseCase.Auth
         AuthFlow flow;
         public AuthController()
         {
-            flow = new AuthFlow(new UserService(), new AuthService());
+
         }
         [HttpPost("login")]
         public IActionResult Login([FromBody] AuthPresenter model)
         {
 
+            AuthFlow flow = new AuthFlow(new UserService(), new AuthService());
             Response response = flow.Login(model.Username, model.Password);
             if (response.Status == Message.ERROR)
             {
