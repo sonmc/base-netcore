@@ -1,8 +1,8 @@
 ﻿
+using Base.Core;
+using Base.Utils;
 using BaseNetCore.Middleware;
-using BaseNetCore.Src.Helper;
-using BaseNetCore.Src.Services.Schemas;
-using BaseNetCore.Src.Utils;
+using BaseNetCore.Src.Helper; 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

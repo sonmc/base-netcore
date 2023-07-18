@@ -1,8 +1,7 @@
-﻿
-using Base.Core.Schemas;
+﻿using Base.Core.Schemas;
 using Microsoft.EntityFrameworkCore;
 
-namespace BaseNetCore.Helper
+namespace Base.Core.Database
 {
     public class Seeding
     {
