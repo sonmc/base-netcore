@@ -1,27 +1,31 @@
 ﻿using Base.Core;
 using Base.Core.Schemas;
-using Base.Utils; 
+using Base.Utils;
 
-namespace BaseNetCore.Src.Services
+
+namespace Base.Services
 {
     public interface IUser
     {
-        Response GetUser(string username);
+        Response Get(string username);
         Response Get(int id);
         Response List();
         Response Create(UserSchema user);
         Response Delete(int id);
+        Response SetRefreshToken(string refreshToken, int userId);
+        Response UpdateLoginTime(int userId);
     }
+
     public class UserService : IUser
     {
 
         private readonly DataContext context;
-        public UserService()
+        public UserService(DataContext _ctx)
         {
-            this.context = new DataContext();
+            this.context = _ctx;
         }
 
-        public Response GetUser(string username)
+        public Response Get(string username)
         {
             UserSchema user = context.Users.Where(x => x.UserName.Equals(username)).FirstOrDefault();
             return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
@@ -29,7 +33,7 @@ namespace BaseNetCore.Src.Services
 
         public Response List()
         {
-            var users = context.Users;
+            var users = context.Users.ToList();
             return new Response(Message.SUCCESS, users);
         }
 

@@ -1,8 +1,9 @@
 ﻿
 using Base.Core;
-using Base.Utils; 
+using Base.Utils;
 
-namespace BaseNetCore.Src.Services
+
+namespace Base.Services
 {
     public interface IPermService
     {

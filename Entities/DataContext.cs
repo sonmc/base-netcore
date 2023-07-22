@@ -34,7 +34,7 @@ namespace Base.Core
             base.OnConfiguring(optionsBuilder);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
             Seeding.PermInit(modelBuilder);
             base.OnModelCreating(modelBuilder);

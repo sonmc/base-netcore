@@ -1,5 +1,5 @@
 ﻿
-using BaseNetCore.Src.Services;
+using Base.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Base.Utils;
@@ -9,17 +9,15 @@ namespace BaseNetCore.Src.UseCase.Auth
 {
     public class AuthFlow
     {
-        readonly IUser userService;
-        readonly IAuth authService;
-        public AuthFlow(IUser _userService, IAuth _authService)
+        private readonly IUnitOfWork uow;
+        public AuthFlow(IUnitOfWork _uow)
         {
-            userService = _userService;
-            authService = _authService;
+            uow = _uow;
         }
 
         public Response Login(string username, string password)
         {
-            Response response = userService.GetUser(username);
+            Response response = uow.User.Get(username);
             if (response.Status == Message.ERROR)
             {
                 return response;
@@ -32,8 +30,8 @@ namespace BaseNetCore.Src.UseCase.Auth
             }
             string accessToken = JwtUtil.GenerateAccessToken(user.Id);
             string refreshToken = JwtUtil.GenerateRefreshToken();
-            authService.SetRefreshToken(refreshToken, user.Id);
-            authService.UpdateLoginTime(user.Id);
+            uow.User.SetRefreshToken(refreshToken, user.Id);
+            uow.User.UpdateLoginTime(user.Id);
             return new Response(Message.SUCCESS, new TokenPresenter { AccessToken = accessToken, RefreshToken = refreshToken });
         }
 
@@ -44,7 +42,7 @@ namespace BaseNetCore.Src.UseCase.Auth
             var jwtToken = tokenHandler.ReadJwtToken(accessToken);
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
             int userId = Int32.Parse(userCredentialString);
-            Response response = userService.Get(userId);
+            Response response = uow.User.Get(userId);
             UserSchema user = (UserSchema)response.Result;
             bool isMatched = user.HashRefreshToken.Equals(refreshToken);
             if (isMatched)

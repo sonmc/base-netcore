@@ -5,15 +5,14 @@ namespace Base.Utils
 {
     public class CtrlUtil
     {
-        public static async Task<object> ApplySortAndPaging<T, TKey>(int cursor, int pageSize, DbSet<T> schema, string sortName, string ascending = "asc")
+        public static async Task<object> ApplySortAndPaging<T, TKey>(int cursor, int pageSize, List<T> items, string sortName, string ascending = "asc")
     where T : class
         {
             try
             {
                 cursor = cursor * pageSize;
-                var query = schema.AsQueryable();
-
-                var items = await query.ToListAsync(); // Retrieve all items from the database
+                //var query = schema.AsQueryable();
+                //var items = await query.ToListAsync();  
 
                 // Apply cursor-based filtering
                 var filteredItems = items.Where(item => GetItemId(item) > cursor);

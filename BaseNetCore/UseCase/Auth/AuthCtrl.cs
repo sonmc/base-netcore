@@ -1,7 +1,7 @@
 ﻿  
 using Microsoft.AspNetCore.Mvc;
-using BaseNetCore.Src.Services;
 using Base.Utils;
+using Base.Services;
 
 namespace BaseNetCore.Src.UseCase.Auth
 {
@@ -9,16 +9,12 @@ namespace BaseNetCore.Src.UseCase.Auth
     [Route("auth")]
     public class AuthController : ControllerBase
     {
-        AuthFlow flow;
-        public AuthController()
-        {
-
-        }
+       
         [HttpPost("login")]
         public IActionResult Login([FromBody] AuthPresenter model)
         {
 
-            AuthFlow flow = new AuthFlow(new UserService(), new AuthService());
+            AuthFlow flow = new AuthFlow(new UnitOfWork());
             Response response = flow.Login(model.Username, model.Password);
             if (response.Status == Message.ERROR)
             {
@@ -34,10 +30,12 @@ namespace BaseNetCore.Src.UseCase.Auth
         [HttpPost("refresh-token")]
         public IActionResult RefreshToken([FromBody] TokenPresenter tokenParam)
         {
-            if (string.IsNullOrWhiteSpace(tokenParam.AccessToken) || string.IsNullOrWhiteSpace(tokenParam.RefreshToken))
+           
+            if (string.IsNullOrWhiteSpace(tokenParam.RefreshToken))
             {
                 return Unauthorized();
             }
+            AuthFlow flow = new AuthFlow(new UnitOfWork());
             Response response = flow.RefreshToken(tokenParam.AccessToken, tokenParam.RefreshToken);
             if (response.Status == Message.ERROR)
             {

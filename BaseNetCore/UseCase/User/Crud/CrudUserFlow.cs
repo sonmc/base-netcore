@@ -1,16 +1,16 @@
 ﻿using Base.Core.Schemas;
-using Base.Utils;  
-using BaseNetCore.Src.Services;  
+using Base.Utils;
+using Base.Services;
 
 namespace BaseNetCore.Src.UseCase.User
 {
 
     public class CrudUserFlow
     {
-        readonly IUser userService;
-        public CrudUserFlow(IUser _service)
+        private readonly IUnitOfWork uow;
+        public CrudUserFlow(IUnitOfWork _uow)
         {
-            userService = _service;
+            uow = _uow;
         }
 
         public Response GetCurrentUser(string token)
@@ -21,7 +21,7 @@ namespace BaseNetCore.Src.UseCase.User
             {
                 return new Response(Message.ERROR, null);
             }
-            Response response = userService.Get(id);
+            Response response = uow.User.Get(id);
 
             if (response.Status == Message.ERROR)
             {
@@ -33,7 +33,7 @@ namespace BaseNetCore.Src.UseCase.User
 
         public Response List()
         {
-            Response response = userService.List(); 
+            Response response = uow.User.List();
             if (response.Status == Message.ERROR)
             {
                 return new Response(Message.ERROR, null);
@@ -43,7 +43,7 @@ namespace BaseNetCore.Src.UseCase.User
 
         public Response Create(UserSchema user)
         {
-            Response response = userService.Create(user);
+            Response response = uow.User.Create(user);
             if (response.Status == Message.ERROR)
             {
                 return new Response(Message.ERROR, null);
@@ -53,7 +53,7 @@ namespace BaseNetCore.Src.UseCase.User
 
         public Response Delete(int id)
         {
-            Response response = userService.Delete(id);
+            Response response = uow.User.Delete(id);
             if (response.Status == Message.ERROR)
             {
                 return new Response(Message.ERROR, null);

@@ -73,6 +73,7 @@ namespace BaseNetCore
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<RouteCaptureMiddleware>();
             app.UseEndpoints(endpoints =>
             {

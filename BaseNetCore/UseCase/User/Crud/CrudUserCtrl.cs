@@ -1,8 +1,7 @@
 ﻿using Base.Core.Schemas;
-using Base.Utils; 
-using BaseNetCore.Src.Services; 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Base.Utils;
+using Base.Services;
+using Microsoft.AspNetCore.Mvc; 
 
 namespace BaseNetCore.Src.UseCase.User.Crud
 {
@@ -13,7 +12,7 @@ namespace BaseNetCore.Src.UseCase.User.Crud
         [HttpGet("get-current-user")]
         public IActionResult GetCurentUser()
         {
-            CrudUserFlow flow = new CrudUserFlow(new UserService());
+            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
             string token = Request.Cookies[JwtUtil.ACCESS_TOKEN];
             if (string.IsNullOrEmpty(token))
             {
@@ -30,15 +29,15 @@ namespace BaseNetCore.Src.UseCase.User.Crud
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            CrudUserFlow flow = new CrudUserFlow(new UserService());
+            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
             Response response = flow.List();
-            DbSet<UserSchema> schema = (DbSet<UserSchema>)response.Result;
+            List<UserSchema> items = (List<UserSchema>)response.Result;
             int cursor = 1;
             int pageSize = 10;
             string sortName = "UserName";
             string sortType = "asc";
-       
-            ResponsePresenter result = (ResponsePresenter)await CtrlUtil.ApplySortAndPaging<UserSchema, string>(cursor, pageSize, schema, sortName, sortType);
+
+            var result = await CtrlUtil.ApplySortAndPaging<UserSchema, string>(cursor, pageSize, items, sortName, sortType);
 
             if (response.Status == Message.ERROR)
             {
@@ -50,8 +49,8 @@ namespace BaseNetCore.Src.UseCase.User.Crud
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] UserSchema user)
         {
-            CrudUserFlow flow = new CrudUserFlow(new UserService());
-            Response response = flow.Create(user); 
+            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
+            Response response = flow.Create(user);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();
@@ -62,7 +61,7 @@ namespace BaseNetCore.Src.UseCase.User.Crud
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            CrudUserFlow flow = new CrudUserFlow(new UserService());
+            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
             Response response = flow.Delete(id);
             if (response.Status == Message.ERROR)
             {

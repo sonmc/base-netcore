@@ -1,8 +1,9 @@
 using Base.Core;
 using Base.Core.Schemas;
-using Base.Utils; 
+using Base.Utils;
 
-namespace BaseNetCore.Src.Services
+
+namespace Base.Services
 {
     public interface IAuth
     {
@@ -13,10 +14,11 @@ namespace BaseNetCore.Src.Services
     public class AuthService : IAuth
     {
         private readonly DataContext context;
-        public AuthService()
+        public AuthService(DataContext ctx)
         {
-            this.context = new DataContext();
+            this.context = ctx;
         }
+
         public Response UpdateLoginTime(int userId)
         {
             UserSchema user = context.Users.Find(userId);
