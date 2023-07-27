@@ -2,7 +2,6 @@ using Base.Core;
 using Base.Core.Schemas;
 using Base.Utils;
 
-
 namespace Base.Services
 {
     public interface IAuth

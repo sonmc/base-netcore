@@ -10,7 +10,7 @@ namespace Base.Services
         Response Get(string username);
         Response Get(int id);
         Response List();
-        Response Create(UserSchema user);
+        Task<Response> Create(UserSchema user);
         Response Delete(int id);
         Response SetRefreshToken(string refreshToken, int userId);
         Response UpdateLoginTime(int userId);
@@ -37,9 +37,9 @@ namespace Base.Services
             return new Response(Message.SUCCESS, users);
         }
 
-        public Response Create(UserSchema u)
+        public async Task<Response> Create(UserSchema u)
         {
-            var user = context.Users.Add(u);
+            var user = await context.Users.AddAsync(u);
             context.SaveChanges();
             return new Response(Message.SUCCESS, user);
         }

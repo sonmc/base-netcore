@@ -1,14 +1,14 @@
 ﻿
 using Base.Core;
 using Base.Utils;
-using BaseNetCore.Middleware;
-using BaseNetCore.Src.Helper; 
+using Base.Application.Middleware;
+using Base.Application.Helper; 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace BaseNetCore
+namespace Base.Application
 {
     public class Startup
     {

@@ -1,4 +1,4 @@
-namespace BaseNetCore
+namespace Base.Application
 {
     public class Program
     {

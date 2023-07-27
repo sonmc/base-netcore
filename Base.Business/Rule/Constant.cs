@@ -1,4 +1,4 @@
-﻿namespace BaseNetCore.Business.Rule
+﻿namespace Base.Business
 {
   public class Constant
   {

@@ -2,7 +2,7 @@
 using Base.Utils;
 using Base.Services;
 
-namespace BaseNetCore.Src.UseCase.User
+namespace Base.Application.UseCase.User
 {
 
     public class CrudUserFlow
@@ -41,9 +41,9 @@ namespace BaseNetCore.Src.UseCase.User
             return new Response(Message.SUCCESS, response.Result);
         }
 
-        public Response Create(UserSchema user)
+        public async Task<Response> Create(UserSchema user)
         {
-            Response response = uow.User.Create(user);
+            Response response = await uow.User.Create(user);
             if (response.Status == Message.ERROR)
             {
                 return new Response(Message.ERROR, null);

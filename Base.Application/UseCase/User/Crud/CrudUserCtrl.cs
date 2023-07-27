@@ -3,7 +3,7 @@ using Base.Utils;
 using Base.Services;
 using Microsoft.AspNetCore.Mvc; 
 
-namespace BaseNetCore.Src.UseCase.User.Crud
+namespace Base.Application.UseCase.User.Crud
 {
     [ApiController]
     [Route("users")]
@@ -50,7 +50,7 @@ namespace BaseNetCore.Src.UseCase.User.Crud
         public async Task<IActionResult> Create([FromBody] UserSchema user)
         {
             CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
-            Response response = flow.Create(user);
+            Response response = await flow.Create(user);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();

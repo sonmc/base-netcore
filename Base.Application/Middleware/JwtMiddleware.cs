@@ -1,6 +1,6 @@
-﻿ 
+﻿
 
-namespace BaseNetCore.Middleware
+namespace Base.Application.Middleware
 {
     public class JwtMiddleware
     {

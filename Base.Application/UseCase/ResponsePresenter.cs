@@ -1,4 +1,4 @@
-﻿namespace BaseNetCore.Src.UseCase
+﻿namespace Base.Application.UseCase
 {
     public class ResponsePresenter
     {
