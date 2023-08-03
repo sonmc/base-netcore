@@ -3,9 +3,7 @@
 namespace Base.Application.UseCase.User.Crud
 {
     public class CrudUserPresenter
-    {
-        public int Id { get; set; }
-
+    {  
         public static List<UserSchema> PresentList(List<UserSchema> items)
         {
             var result = new List<UserSchema>();

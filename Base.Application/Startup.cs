@@ -6,7 +6,7 @@ using Base.Application.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using System.Text; 
 
 namespace Base.Application
 {
@@ -22,6 +22,7 @@ namespace Base.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            MappingConfig.AutoMapperConfig(services);
             services.AddOptions();
             services.AddCors(options =>
             { 
@@ -30,7 +31,7 @@ namespace Base.Application
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
-            });
+            }); 
             services.AddControllers();
             services.AddSwaggerGen(); 
             services.AddMvc();
@@ -56,7 +57,7 @@ namespace Base.Application
                     ValidateAudience = false
                 };
             });
-            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.0.28-mysql")));
+            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.0.28-mysql"))); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

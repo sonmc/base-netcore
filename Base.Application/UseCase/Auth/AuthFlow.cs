@@ -17,12 +17,9 @@ namespace BaseNetCore.Src.UseCase.Auth
 
         public Response Login(string username, string password)
         {
-            Response response = uow.User.Get(username);
-            if (response.Status == Message.ERROR)
-            {
-                return response;
-            }
-            UserSchema user = (UserSchema)response.Result;
+            List<UserSchema> users = uow.User.Get(username);
+
+            UserSchema user = users.FirstOrDefault();
             bool isMatched = JwtUtil.Compare(password, user.Password);
             if (!isMatched)
             {
@@ -42,8 +39,7 @@ namespace BaseNetCore.Src.UseCase.Auth
             var jwtToken = tokenHandler.ReadJwtToken(accessToken);
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
             int userId = Int32.Parse(userCredentialString);
-            Response response = uow.User.Get(userId);
-            UserSchema user = (UserSchema)response.Result;
+            UserSchema user = uow.User.Get(userId); 
             bool isMatched = user.HashRefreshToken.Equals(refreshToken);
             if (isMatched)
             {

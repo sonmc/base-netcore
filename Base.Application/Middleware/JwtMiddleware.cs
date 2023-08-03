@@ -19,7 +19,7 @@ namespace Base.Application.Middleware
             }
             catch (Exception ex)
             {
-         
+                Console.WriteLine(ex);
             }
         }
     }

@@ -1,18 +1,28 @@
 ﻿using Base.Core.Schemas;
 using Base.Utils;
 using Base.Services;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
+using Base.Application.UseCase.User.Crud.Model;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Base.Application.UseCase.User.Crud
 {
+    [Authorize]
     [ApiController]
     [Route("users")]
     public class CrudUserCtrl : ControllerBase
     {
+        private readonly IMapper _mapper;
+        public CrudUserCtrl(IMapper mapper)
+        {
+            _mapper = mapper; 
+        }
+
         [HttpGet("get-current-user")]
         public IActionResult GetCurentUser()
         {
-            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
+            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             string token = Request.Cookies[JwtUtil.ACCESS_TOKEN];
             if (string.IsNullOrEmpty(token))
             {
@@ -29,7 +39,7 @@ namespace Base.Application.UseCase.User.Crud
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
+            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             Response response = flow.List();
             List<UserSchema> items = (List<UserSchema>)response.Result;
             int cursor = 1;
@@ -47,10 +57,24 @@ namespace Base.Application.UseCase.User.Crud
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UserSchema user)
+        public async Task<IActionResult> Create([FromBody] CreateUserModel model)
         {
-            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
+            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
+            UserSchema user = _mapper.Map<UserSchema>(model);
             Response response = await flow.Create(user);
+            if (response.Status == Message.ERROR)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateUserModel model)
+        {
+            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
+            UserSchema user = _mapper.Map<UserSchema>(model);
+            Response response = await flow.Update(user);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();
@@ -61,7 +85,7 @@ namespace Base.Application.UseCase.User.Crud
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            CrudUserFlow flow = new CrudUserFlow(new UnitOfWork());
+            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             Response response = flow.Delete(id);
             if (response.Status == Message.ERROR)
             {

@@ -6,8 +6,7 @@ using Base.Utils;
 namespace Base.Services
 {
     public interface IPermService
-    {
-        Response Get();
+    { 
     }
 
     public class PermService : IPermService
@@ -17,10 +16,6 @@ namespace Base.Services
         {
             this.context = new DataContext();
         }
-
-        public Response Get()
-        {
-            throw new NotImplementedException();
-        }
+         
     }
 }

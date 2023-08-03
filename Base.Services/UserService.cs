@@ -1,77 +1,44 @@
 ﻿using Base.Core;
-using Base.Core.Schemas;
-using Base.Utils;
+using Base.Core.Schemas; 
 
 
 namespace Base.Services
 {
-    public interface IUser
+    public interface IUser : IBaseService<UserSchema>
     {
-        Response Get(string username);
-        Response Get(int id);
-        Response List();
-        Task<Response> Create(UserSchema user);
-        Response Delete(int id);
-        Response SetRefreshToken(string refreshToken, int userId);
-        Response UpdateLoginTime(int userId);
+        UserSchema SetRefreshToken(string refreshToken, int userId);
+        UserSchema UpdateLoginTime(int userId);
+        List<UserSchema> Get(string name);
     }
 
-    public class UserService : IUser
+    public class UserService : ZBaseService<UserSchema, DataContext>, IUser
     {
 
         private readonly DataContext context;
-        public UserService(DataContext _ctx)
+        public UserService(DataContext _ctx) : base(_ctx)
         {
             this.context = _ctx;
         }
 
-        public Response Get(string username)
-        {
-            UserSchema user = context.Users.Where(x => x.UserName.Equals(username)).FirstOrDefault();
-            return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
-        }
-
-        public Response List()
-        {
-            var users = context.Users.ToList();
-            return new Response(Message.SUCCESS, users);
-        }
-
-        public async Task<Response> Create(UserSchema u)
-        {
-            var user = await context.Users.AddAsync(u);
-            context.SaveChanges();
-            return new Response(Message.SUCCESS, user);
-        }
-
-        public Response Delete(int id)
-        {
-            var user = context.Users.Find(id);
-            context.Users.Remove(user);
-            context.SaveChanges();
-            return new Response(Message.SUCCESS, id);
-        }
-
-        public Response Get(int id)
-        {
-            UserSchema user = context.Users.Find(id);
-            return new Response(user == null ? Message.ERROR : Message.SUCCESS, user);
-        }
-
-        public Response UpdateLoginTime(int userId)
+        public UserSchema UpdateLoginTime(int userId)
         {
             UserSchema user = context.Users.Find(userId);
             user.LastLogin = DateTime.UtcNow;
-            return new Response(Message.SUCCESS, user);
+            return user;
         }
 
-        public Response SetRefreshToken(string refreshToken, int userId)
+        public UserSchema SetRefreshToken(string refreshToken, int userId)
         {
             UserSchema user = context.Users.Find(userId);
             user.HashRefreshToken = refreshToken;
             context.Users.Update(user);
-            return new Response(Message.SUCCESS, user);
+            return user;
         }
 
+        public List<UserSchema> Get(string name)
+        {
+            List<UserSchema> users = context.Users.Where(u=>u.UserName.Equals(name)).ToList();
+            return users;
+        }
     }
 }

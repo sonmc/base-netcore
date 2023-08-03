@@ -15,14 +15,14 @@ namespace Base.Services
         IDbContextTransaction BeginTransaction();
     }
 
-    public class UnitOfWork : IUnitOfWork
+    public class ZUnitOfWork : IUnitOfWork
     {
         private readonly DataContext dbContext;
 
         public IAuth Auth { get; }
         public IUser User { get; }
 
-        public UnitOfWork()
+        public ZUnitOfWork()
         {
             this.dbContext = new DataContext();
             this.Auth = new AuthService(this.dbContext);
