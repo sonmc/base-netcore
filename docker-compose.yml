@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    image: d9c75bfdac7e
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Default=Server=db;Database=base_core;User=root;Password=123456
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=base_core
+
+volumes:
+  mysql_data:
