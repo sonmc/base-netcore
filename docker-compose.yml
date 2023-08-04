@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   web:
-    image: d9c75bfdac7e
+    build: .
     ports:
-      - "5000:5000"
-    volumes:
-      - ./app:/app
+      - "5001:5000"
+    # volumes:
+    #   - ./app:/app
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__Default=Server=db;Database=base_core;User=root;Password=123456

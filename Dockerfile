@@ -9,4 +9,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app ./
 EXPOSE 5000
-ENTRYPOINT [ "dotnet", "Base.Application.dll" ]
+RUN ls /app
+ENTRYPOINT [ "dotnet", "Base.Application.dll", "--urls", "http://0.0.0.0:5000" ]
