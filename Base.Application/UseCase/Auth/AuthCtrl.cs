@@ -4,7 +4,7 @@ using Base.Utils;
 using Base.Services;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BaseNetCore.Src.UseCase.Auth
+namespace Base.Application.UseCase.Auth
 {
     [ApiController]
     [Route("auth")]

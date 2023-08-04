@@ -3,9 +3,9 @@ using Base.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Base.Utils;
-using Base.Core.Schemas;
+using Base.Core.Schemas; 
 
-namespace BaseNetCore.Src.UseCase.Auth
+namespace Base.Application.UseCase.Auth
 {
     public class AuthFlow
     {

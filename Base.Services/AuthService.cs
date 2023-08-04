@@ -6,8 +6,8 @@ namespace Base.Services
 {
     public interface IAuth
     {
-        Response UpdateLoginTime(int userId);
-        Response SetRefreshToken(string refreshToken, int userId);
+        void UpdateLoginTime(int userId);
+        UserSchema SetRefreshToken(string refreshToken, int userId);
     }
 
     public class AuthService : IAuth
@@ -18,20 +18,19 @@ namespace Base.Services
             this.context = ctx;
         }
 
-        public Response UpdateLoginTime(int userId)
+        public void UpdateLoginTime(int userId)
         {
             UserSchema user = context.Users.Find(userId);
             user.LastLogin = DateTime.UtcNow;
-            context.Users.Update(user);
-            return new Response(Message.SUCCESS, user);
+            context.Users.Update(user); 
         }
 
-        public Response SetRefreshToken(string refreshToken, int userId)
+        public UserSchema SetRefreshToken(string refreshToken, int userId)
         {
             UserSchema user = context.Users.Find(userId);
             user.HashRefreshToken = refreshToken;
             context.Users.Update(user);
-            return new Response(Message.SUCCESS, user);
+            return user;
         }
 
     }

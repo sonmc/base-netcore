@@ -1,4 +1,4 @@
-﻿namespace BaseNetCore.Src.UseCase.Auth
+﻿namespace Base.Application.UseCase.Auth
 {
   public class TokenPresenter
   {

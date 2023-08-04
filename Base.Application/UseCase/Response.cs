@@ -1,4 +1,4 @@
-﻿namespace Base.Utils
+﻿namespace Base.Application.UseCase
 { 
     public class Response
     {
@@ -10,5 +10,11 @@
             Status = status;
             Result = data;
         }
+    }
+
+    public class ResponsePresenter
+    {
+        public object Items { get; set; }
+        public bool HasNextPage { get; set; }
     }
 }
