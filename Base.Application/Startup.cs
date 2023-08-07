@@ -75,6 +75,7 @@ namespace Base.Application
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers(); 
