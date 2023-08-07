@@ -16,7 +16,7 @@ namespace Base.Application.UseCase.User.Crud
         private readonly IMapper _mapper;
         public CrudUserCtrl(IMapper mapper)
         {
-            _mapper = mapper; 
+            _mapper = mapper;
         }
 
         [HttpGet("get-current-user")]
@@ -37,23 +37,19 @@ namespace Base.Application.UseCase.User.Crud
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(string sortName, string sortType = "asc", int cursor = 0, int pageSize = 10)
         {
             CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             Response response = flow.List();
             List<UserSchema> items = (List<UserSchema>)response.Result;
-            int cursor = 1;
-            int pageSize = 10;
-            string sortName = "UserName";
-            string sortType = "asc";
-
-            var result = await CtrlUtil.ApplySortAndPaging<UserSchema, string>(cursor, pageSize, items, sortName, sortType);
-
+            CtrlUtil.ApplySort<UserSchema, string>(ref items, sortName, sortType);
+            ResponsePresenter res = CtrlUtil.ApplyPaging<UserSchema, string>(cursor, pageSize, items); 
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();
             }
-            return Ok(result);
+            res.Items = CrudUserPresenter.PresentList((List<UserSchema>)res.Items);
+            return Ok(res);
         }
 
         [HttpPost]

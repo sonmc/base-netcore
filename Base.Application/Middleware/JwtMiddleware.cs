@@ -1,6 +1,4 @@
-﻿
-
-namespace Base.Application.Middleware
+﻿namespace Base.Application.Middleware
 {
     public class JwtMiddleware
     {
@@ -15,12 +13,22 @@ namespace Base.Application.Middleware
         {
             try
             {
-                await _next(context);
+                bool isAuthorize = CheckAuthorize(context);
+                if (!isAuthorize)
+                {
+                    await _next(context);
+                }
+               
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
+        }
+
+        public bool CheckAuthorize(HttpContext context)
+        {
+            return true;
         }
     }
 }

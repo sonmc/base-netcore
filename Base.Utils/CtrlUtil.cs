@@ -4,28 +4,21 @@ namespace Base.Utils
 {
     public class CtrlUtil
     {
-        public static async Task<object> ApplySortAndPaging<T, TKey>(int cursor, int pageSize, List<T> items, string sortName, string ascending = "asc")
+        public static ResponsePresenter ApplyPaging<T, TKey>(int cursor, int pageSize, List<T> items)
          where T : class
         {
             try
             {
-                cursor = cursor * pageSize;
+                cursor = (cursor - 1) * pageSize;
                 //var query = schema.AsQueryable();
                 //var items = await query.ToListAsync();  
-
-                // Apply cursor-based filtering
+                 
                 var filteredItems = items.Where(item => GetItemId(item) > cursor);
+                  
+                var pageItems = filteredItems.Take(pageSize).ToList();
+                var hasNextPage = filteredItems.Skip(pageSize).Any();
 
-                // Apply sorting
-                var sortedItems = ascending == "asc"
-                    ? filteredItems.OrderBy(item => GetSortValue(item, sortName))
-                    : filteredItems.OrderByDescending(item => GetSortValue(item, sortName));
-
-                // Perform paging
-                var pageItems = sortedItems.Take(pageSize).ToList();
-                var hasNextPage = sortedItems.Skip(pageSize).Any();
-
-                return new
+                return new ResponsePresenter
                 {
                     Items = pageItems,
                     HasNextPage = hasNextPage
@@ -36,6 +29,17 @@ namespace Base.Utils
                 Console.WriteLine(ex);
                 return new();
             }
+        }
+
+
+        public static List<T> ApplySort<T, TKey>(ref List<T> items, string sortName, string ascending = "asc")
+        where T : class
+        {
+            items = ascending == "asc"
+                    ? items.OrderBy(item => GetSortValue(item, sortName)).ToList()
+                    : items.OrderByDescending(item => GetSortValue(item, sortName)).ToList(); 
+                return items;
+             
         }
 
         public static int GetItemId<T>(T item)

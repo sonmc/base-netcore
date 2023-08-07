@@ -19,6 +19,7 @@ namespace Base.Application.UseCase.User.Crud
         {
             UserSchema user = new UserSchema();
             user.Id = item.Id;
+            user.UserName = item.UserName;
             return user;
         }
     }
