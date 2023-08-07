@@ -5,10 +5,16 @@ namespace Base.Core.Database
 {
     public class Seeding
     {
-        public static void PermInit(ModelBuilder modelBuilder)
+        public static async void SyncAllRouter(ModelBuilder modelBuilder)
         {
-            var perm = new Perm { Id = 1, Label = "Test", Name = "Test" };
-            modelBuilder.Entity<Perm>().HasData(perm);
+            var perm = new PermSchema { Id = 1, Title = "Test", Action = "", Module = "", ProfileTypes = "[]" };
+            modelBuilder.Entity<PermSchema>().HasData(perm);
+        }
+
+        public static async void Init(ModelBuilder modelBuilder)
+        {
+            //var perm = new PermSchema { Id = 1, Title = "Test" };
+            //modelBuilder.Entity<PermSchema>().HasData(perm);
         }
     }
 }

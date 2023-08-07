@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Base.Application.UseCase.Auth
 {
     [ApiController]
-    [Route("auth")]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         AuthFlow flow;

@@ -10,6 +10,6 @@ namespace Base.Core.Schemas
     public int UserRoleId { get; set; } 
 
     public UserSchema User { get; set; }
-    public RoleSchema Role { get; set; }
+    public GroupSchema Role { get; set; }
   }
 }

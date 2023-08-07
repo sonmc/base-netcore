@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Base.Core.Schemas
 {
-  public class RolePerm
+  public class GroupPerm
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
           
-    public RoleSchema Role { get; set; }
-    public Perm Permission { get; set; }
+    public GroupSchema Group { get; set; }
+    public PermSchema Perm { get; set; }
   }
 }

@@ -17,9 +17,9 @@ namespace Base.Core
         }
 
         public virtual DbSet<UserSchema> Users { get; set; }
-        public virtual DbSet<RoleSchema> Roles { get; set; }
-        public virtual DbSet<Perm> Permissions { get; set; }
-        public virtual DbSet<RolePerm> RolesPerms { get; set; }
+        public virtual DbSet<GroupSchema> Roles { get; set; }
+        public virtual DbSet<PermSchema> Perms { get; set; }
+        public virtual DbSet<GroupPerm> RolesPerms { get; set; }
         public virtual DbSet<UserRole> UsersRoles { get; set; }
 
         protected override void OnConfiguring(
@@ -27,7 +27,7 @@ namespace Base.Core
         )
         {
             var connectionString = "server=localhost;port=3306;database=base_core;uid=root;password=123456";
-            optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.0.28-mysql"), 
+            optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.0.28-mysql"),
                 builder =>
                    {
                        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
@@ -37,7 +37,8 @@ namespace Base.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Seeding.PermInit(modelBuilder);
+            Seeding.SyncAllRouter(modelBuilder);
+            Seeding.Init(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
     }

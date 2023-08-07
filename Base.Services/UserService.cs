@@ -9,6 +9,7 @@ namespace Base.Services
         UserSchema SetRefreshToken(string refreshToken, int userId);
         UserSchema UpdateLoginTime(int userId);
         List<UserSchema> Get(string name);
+        bool CheckPermissionAction(int user, string action);
     }
 
     public class UserService : ZBaseService<UserSchema, DataContext>, IUser
@@ -39,6 +40,11 @@ namespace Base.Services
         {
             List<UserSchema> users = context.Users.Where(u=>u.UserName.Equals(name)).ToList();
             return users;
+        }
+
+        public bool CheckPermissionAction(int userId, string action)
+        {
+            throw new NotImplementedException();
         }
     }
 }

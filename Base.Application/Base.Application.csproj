@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Base.Business\Base.Business.csproj" />
     <ProjectReference Include="..\Base.Services\Base.Services.csproj" />
     <ProjectReference Include="..\Base.Core\Base.Core.csproj" />
     <ProjectReference Include="..\Base.Utils\Base.Utils.csproj" />

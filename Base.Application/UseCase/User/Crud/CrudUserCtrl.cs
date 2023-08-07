@@ -10,7 +10,7 @@ namespace Base.Application.UseCase.User.Crud
 {
     [Authorize]
     [ApiController]
-    [Route("users")]
+    [Route("api/users")]
     public class CrudUserCtrl : ControllerBase
     {
         private readonly IMapper _mapper;
