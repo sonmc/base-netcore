@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Base.Core.Schemas
 {
-  public class UserRole
+  public class UsersGroups
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int UserRoleId { get; set; } 
+    public int UserGroupId { get; set; } 
 
     public UserSchema User { get; set; }
-    public GroupSchema Role { get; set; }
+    public GroupSchema Group { get; set; }
   }
 }

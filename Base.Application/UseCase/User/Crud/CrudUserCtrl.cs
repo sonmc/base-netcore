@@ -53,7 +53,7 @@ namespace Base.Application.UseCase.User.Crud
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserModel model)
+        public async Task<IActionResult> Create([FromBody] CreateUserPresenter model)
         {
             CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             UserSchema user = _mapper.Map<UserSchema>(model);
@@ -66,7 +66,7 @@ namespace Base.Application.UseCase.User.Crud
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateUserModel model)
+        public async Task<IActionResult> Update([FromBody] UpdateUserPresenter model)
         {
             CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             UserSchema user = _mapper.Map<UserSchema>(model);

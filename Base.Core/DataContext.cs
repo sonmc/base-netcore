@@ -17,10 +17,10 @@ namespace Base.Core
         }
 
         public virtual DbSet<UserSchema> Users { get; set; }
-        public virtual DbSet<GroupSchema> Roles { get; set; }
+        public virtual DbSet<GroupSchema> Groups { get; set; }
         public virtual DbSet<PermSchema> Perms { get; set; }
-        public virtual DbSet<GroupPerm> RolesPerms { get; set; }
-        public virtual DbSet<UserRole> UsersRoles { get; set; }
+        public virtual DbSet<GroupPerm> GroupsPerms { get; set; }
+        public virtual DbSet<UsersGroups> UsersGroups { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder
@@ -37,7 +37,6 @@ namespace Base.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Seeding.SyncAllRouter(modelBuilder);
             Seeding.Init(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Base.Application.UseCase.User.Crud.Model
 {
-    public class CreateUserModel
+    public class CreateUserPresenter
     {
         [Required]
         public string Username { get; set; } 
@@ -18,7 +18,7 @@ namespace Base.Application.UseCase.User.Crud.Model
         public CreateUserMapping()
         {
             // Default mapping when property names are same
-            CreateMap<CreateUserModel, UserSchema>();
+            CreateMap<CreateUserPresenter, UserSchema>();
 
             // Mapping when property names are different
             //CreateMap<User, UserViewModel>()
