@@ -4,6 +4,14 @@ namespace Base.Utils
 {
     public class CtrlUtil
     {
+      
+        public struct RoleType
+        {
+            public const string PUBLIC_PROFILE = "[]";
+            public const string ADMIN_PROFILE = "[1]";
+            public const string STAFF_PROFILE = "[2]";
+        }
+
         public static ResponsePresenter ApplyPaging<T, TKey>(int cursor, int pageSize, List<T> items)
          where T : class
         {

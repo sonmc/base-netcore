@@ -1,7 +1,6 @@
 ﻿ 
 using System.Net; 
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Localization;
 using Base.Core.Exception;
 using Base.Utils;
 
@@ -9,13 +8,6 @@ namespace Base.Application.Helper
 {
     public class MiddlewareHelper
     {
-        private readonly IStringLocalizer<MiddlewareHelper> _localizer;
-
-        public MiddlewareHelper(IStringLocalizer<MiddlewareHelper> localizer)
-        {
-            _localizer = localizer;
-        }
-
         public async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             string message;
@@ -58,8 +50,8 @@ namespace Base.Application.Helper
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = statusCode;
-            message = string.IsNullOrEmpty(message) ? null : _localizer[message];
-            title = string.IsNullOrEmpty(title) ? null : _localizer[title];
+            message = string.IsNullOrEmpty(message) ? null : message;
+            title = string.IsNullOrEmpty(title) ? null : title;
             await context.Response.WriteAsync(new ErrorDetails()
             {
                 Title = title,

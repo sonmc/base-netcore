@@ -8,12 +8,10 @@ namespace Base.Application.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionMiddleware> _logger;
-        private readonly IStringLocalizer<MiddlewareHelper> _localizer;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IStringLocalizer<MiddlewareHelper> localizer)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _logger = logger;
-            _localizer = localizer;
             _next = next;
         }
 
@@ -26,7 +24,7 @@ namespace Base.Application.Middleware
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong: {ex}");
-                var middlewareHelper = new MiddlewareHelper(_localizer);
+                var middlewareHelper = new MiddlewareHelper();
                 await middlewareHelper.HandleExceptionAsync(httpContext, ex);
             }
         }
