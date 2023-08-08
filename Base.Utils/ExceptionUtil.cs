@@ -12,7 +12,6 @@ namespace Base.Utils
 
     public class ErrorDetails
     { 
-        public string message { get; set; }
         public string Message { get; set; }
         public string? Title { get; set; }
         public Object? Details { get; set; }
@@ -20,7 +19,6 @@ namespace Base.Utils
         public ErrorDetails()
         {
             Title = "";
-            message = "";
             Message = "";
         }
 

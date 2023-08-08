@@ -4,7 +4,7 @@ namespace Base.Utils
 {
     public class CtrlUtil
     {
-      
+
         public struct RoleType
         {
             public const string PUBLIC_PROFILE = "[]";
@@ -15,28 +15,20 @@ namespace Base.Utils
         public static ResponsePresenter ApplyPaging<T, TKey>(int cursor, int pageSize, List<T> items)
          where T : class
         {
-            try
-            {
-                cursor = (cursor - 1) * pageSize;
-                //var query = schema.AsQueryable();
-                //var items = await query.ToListAsync();  
-                 
-                var filteredItems = items.Where(item => GetItemId(item) > cursor);
-                  
-                var pageItems = filteredItems.Take(pageSize).ToList();
-                var hasNextPage = filteredItems.Skip(pageSize).Any();
+            cursor = (cursor - 1) * pageSize;
+            //var query = schema.AsQueryable();
+            //var items = await query.ToListAsync();  
 
-                return new ResponsePresenter
-                {
-                    Items = pageItems,
-                    HasNextPage = hasNextPage
-                };
-            }
-            catch (Exception ex)
+            var filteredItems = items.Where(item => GetItemId(item) > cursor);
+
+            var pageItems = filteredItems.Take(pageSize).ToList();
+            var hasNextPage = filteredItems.Skip(pageSize).Any();
+
+            return new ResponsePresenter
             {
-                Console.WriteLine(ex);
-                return new();
-            }
+                Items = pageItems,
+                HasNextPage = hasNextPage
+            };
         }
 
 
@@ -45,9 +37,9 @@ namespace Base.Utils
         {
             items = ascending == "asc"
                     ? items.OrderBy(item => GetSortValue(item, sortName)).ToList()
-                    : items.OrderByDescending(item => GetSortValue(item, sortName)).ToList(); 
-                return items;
-             
+                    : items.OrderByDescending(item => GetSortValue(item, sortName)).ToList();
+            return items;
+
         }
 
         public static int GetItemId<T>(T item)
@@ -59,7 +51,12 @@ namespace Base.Utils
         public static object GetSortValue<T>(T item, string sortName)
         {
             var property = typeof(T).GetProperty(sortName);
-            return property.GetValue(item);
+            if (property != null)
+            {
+                return property.GetValue(item);
+            }
+            return "";
+
         }
     }
 }

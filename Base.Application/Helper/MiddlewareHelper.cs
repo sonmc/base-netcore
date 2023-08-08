@@ -55,7 +55,6 @@ namespace Base.Application.Helper
             await context.Response.WriteAsync(new ErrorDetails()
             {
                 Title = title,
-                message = message,
                 Message = message,
                 Details = errorDetail
             }.ToString());

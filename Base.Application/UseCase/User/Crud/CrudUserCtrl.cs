@@ -38,7 +38,7 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response.Result);
         }
 
-        [HttpGet("get", Name = "ListUser_1")]
+        [HttpGet(Name = "ListUser_1")]
         public async Task<IActionResult> List(string sortName, string sortType = "asc", int cursor = 0, int pageSize = 10)
         {
             Response response = workFlow.List();
