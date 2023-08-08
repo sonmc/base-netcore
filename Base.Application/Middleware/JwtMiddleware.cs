@@ -18,15 +18,15 @@ namespace Base.Application.Middleware
             _next = next; 
         }
 
-        public async Task Invoke(HttpContext context, IUnitOfWork uow)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
-                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                if (token != null)
-                {
-                    AttachUserToContext(context, uow, token);
-                }
+                //var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                //if (token != null)
+                //{
+                //    AttachUserToContext(context, uow, token);
+                //}
                 await _next(context);
             } 
             catch (Exception ex)
@@ -57,13 +57,13 @@ namespace Base.Application.Middleware
             var jwtToken = (JwtSecurityToken)validatedToken;
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
             int id = Int32.Parse(userCredentialString);
-            UserSchema user = uow.User.Get(id);
+            UserSchema user = uow.Users.Get(id);
             if (user != null)
             {
                 context.Items["User"] = user;
                 if (user.Id != UserRule.ADMIN_ID)
                 {
-                    CheckPermission(context, user.Id, uow.User);
+                    CheckPermission(context, user.Id, uow.Users);
                 } 
             }
         }

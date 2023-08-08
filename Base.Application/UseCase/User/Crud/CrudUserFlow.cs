@@ -21,31 +21,31 @@ namespace Base.Application.UseCase.User
             {
                 return new Response(Message.ERROR, null);
             } 
-            UserSchema user = uow.User.Get(id);
+            UserSchema user = uow.Users.Get(id);
             return new Response(Message.SUCCESS, user);
         }
 
         public Response List()
         {
-            var users = uow.User.GetAll();
+            var users = uow.Users.GetAll();
             return new Response(Message.SUCCESS, users);
         }
 
         public async Task<Response> Create(UserSchema user)
         {
-            var result =  uow.User.Add(user); 
+            var result =  uow.Users.Add(user); 
             return new Response(Message.SUCCESS, result);
         }
 
         public async Task<Response> Update(UserSchema user)
         {
-            var result = uow.User.Update(user);
+            var result = uow.Users.Update(user);
             return new Response(Message.SUCCESS, result);
         }
 
         public Response Delete(int id)
         {
-            var result = uow.User.Delete(id); 
+            var result = uow.Users.Delete(id); 
             return new Response(Message.SUCCESS, result);
         }
 

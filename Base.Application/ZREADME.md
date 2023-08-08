@@ -1,13 +1,14 @@
 # development cd Base.Application
 
-$   dotnet run
+$ dotnet run
 
-# Migration  cd Base.Core
+# Migration cd Base.Core
 
 -   dotnet ef migrations add Init
 -   dotnet ef database update
 
     password default: 
+- Ping to api "api/sync-all-perm" to capture all perm
 
 # Clean architect
 

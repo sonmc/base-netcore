@@ -17,7 +17,7 @@ namespace Base.Application.UseCase.Auth
 
         public Response Login(string username, string password)
         {
-            List<UserSchema> users = uow.User.Get(username);
+            List<UserSchema> users = uow.Users.Get(username);
 
             UserSchema user = users.FirstOrDefault();
             bool isMatched = JwtUtil.Compare(password, user.Password);
@@ -27,8 +27,8 @@ namespace Base.Application.UseCase.Auth
             }
             string accessToken = JwtUtil.GenerateAccessToken(user.Id);
             string refreshToken = JwtUtil.GenerateRefreshToken();
-            uow.User.SetRefreshToken(refreshToken, user.Id);
-            uow.User.UpdateLoginTime(user.Id);
+            uow.Users.SetRefreshToken(refreshToken, user.Id);
+            uow.Users.UpdateLoginTime(user.Id);
             return new Response(Message.SUCCESS, new TokenPresenter { AccessToken = accessToken, RefreshToken = refreshToken });
         }
 
@@ -39,7 +39,7 @@ namespace Base.Application.UseCase.Auth
             var jwtToken = tokenHandler.ReadJwtToken(accessToken);
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
             int userId = Int32.Parse(userCredentialString);
-            UserSchema user = uow.User.Get(userId); 
+            UserSchema user = uow.Users.Get(userId); 
             bool isMatched = user.HashRefreshToken.Equals(refreshToken);
             if (isMatched)
             {

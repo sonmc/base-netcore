@@ -10,7 +10,7 @@ namespace Base.Core.Schemas
         public int Id { get; set; }
 
         public string Title { get; set; }
-        public int ProfileType { get; set; }
+        public string ProfileType { get; set; }
         public string Description { get; set; }
 
     }

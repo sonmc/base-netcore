@@ -1,5 +1,8 @@
 ﻿
+using Base.Core.Schemas;
 using Base.Services;
+using Base.Utils;
+using static Base.Utils.CtrlUtil;
 
 namespace Base.Application.UseCase.SyncAllPerm
 {
@@ -11,11 +14,72 @@ namespace Base.Application.UseCase.SyncAllPerm
             uow = _uow;
         }
 
-        public Response SyncAllPerm()
+        public Response SyncAllPerm(List<RouterPresenter> routers)
         {
-            Response response = new Response();
-            return response;
+            List<PermSchema> perms = CreatePerms(routers);
+            List<GroupSchema> groups = CreateGroupPerm(perms);
+            AddUserToGroup(groups);
+            Response response = new Response("success", perms);
+            return response; 
         }
-  
+
+        private List<GroupSchema> CreateGroupPerm(List<PermSchema> perms)
+        {
+            List<GroupSchema> groups = uow.Groups.GetAll();
+            List<GroupPerm> groupsPerms = new();
+            foreach (var perm in perms)
+            {
+                for (int i = 0; i < groups.Count; i++)
+                {
+                    if (groups[i].ProfileType.Contains(perm.ProfileTypes) || perm.ProfileTypes == RoleType.PUBLIC_PROFILE)
+                    {
+                        GroupPerm gp = new GroupPerm();
+                        gp.Perm = perm;
+                        gp.Group = groups[i];
+                        groupsPerms.Add(gp);
+                    }
+                }
+
+            }
+            uow.GroupsPerms.Creates(groupsPerms);
+
+            return groups;
+        }
+
+        private List<PermSchema> CreatePerms(List<RouterPresenter> routers)
+        {
+            List<PermSchema> perms = new List<PermSchema>();
+            foreach (var router in routers)
+            {
+                PermSchema permSchema = new PermSchema();
+                permSchema.Action = router.Action;
+                permSchema.Title = StrUtil.ConvertCamelToTitle(router.Action);
+                permSchema.ProfileTypes = "[" + router.Name.Split('_')[1] + "]";
+                permSchema.Module = router.Module;
+                perms.Add(permSchema);
+            }
+            perms = uow.Perms.Creates(perms);
+            return perms;
+        }
+
+        private void AddUserToGroup(List<GroupSchema> groups)
+        {
+            List<UsersGroups> usersGroups = new List<UsersGroups>();
+            List<UserSchema> users = uow.Users.GetAll();
+            foreach (var user in users)
+            {
+                foreach (var group in groups)
+                {
+                    if (user.GroupIds.Contains(group.ProfileType))
+                    {
+                        UsersGroups ug = new UsersGroups();
+                        ug.User = user;
+                        ug.Group = group;
+                        usersGroups.Add(ug);
+                    }
+                }
+            }
+            uow.UsersGroups.Creates(usersGroups);
+        }
     }
 }

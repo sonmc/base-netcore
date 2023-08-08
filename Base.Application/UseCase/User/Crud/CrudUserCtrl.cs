@@ -14,21 +14,23 @@ namespace Base.Application.UseCase.User.Crud
     public class CrudUserCtrl : ControllerBase
     {
         private readonly IMapper _mapper;
+        CrudUserFlow workFlow;
         public CrudUserCtrl(IMapper mapper)
         {
             _mapper = mapper;
+            workFlow = new CrudUserFlow(new ZUnitOfWork());
         }
 
-        [HttpGet("get-current-user")]
+        [HttpGet("get-current-user", Name = "GetCurentUser_1")]
         public IActionResult GetCurentUser()
         {
-            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
+
             string token = Request.Cookies[JwtUtil.ACCESS_TOKEN];
             if (string.IsNullOrEmpty(token))
             {
                 return Unauthorized();
             }
-            Response response = flow.GetCurrentUser(token);
+            Response response = workFlow.GetCurrentUser(token);
             if (response.Status == Message.ERROR)
             {
                 return Unauthorized();
@@ -36,14 +38,13 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response.Result);
         }
 
-        [HttpGet]
+        [HttpGet(Name = "List_1")]
         public async Task<IActionResult> List(string sortName, string sortType = "asc", int cursor = 0, int pageSize = 10)
         {
-            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
-            Response response = flow.List();
+            Response response = workFlow.List();
             List<UserSchema> items = (List<UserSchema>)response.Result;
             CtrlUtil.ApplySort<UserSchema, string>(ref items, sortName, sortType);
-            ResponsePresenter res = CtrlUtil.ApplyPaging<UserSchema, string>(cursor, pageSize, items); 
+            ResponsePresenter res = CtrlUtil.ApplyPaging<UserSchema, string>(cursor, pageSize, items);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();
@@ -52,12 +53,11 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(res);
         }
 
-        [HttpPost]
+        [HttpPost(Name = "Create_1")]
         public async Task<IActionResult> Create([FromBody] CreateUserPresenter model)
         {
-            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             UserSchema user = _mapper.Map<UserSchema>(model);
-            Response response = await flow.Create(user);
+            Response response = await workFlow.Create(user);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();
@@ -65,12 +65,11 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut(Name = "Update_1")]
         public async Task<IActionResult> Update([FromBody] UpdateUserPresenter model)
         {
-            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
             UserSchema user = _mapper.Map<UserSchema>(model);
-            Response response = await flow.Update(user);
+            Response response = await workFlow.Update(user);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();
@@ -78,11 +77,10 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response);
         }
 
-        [HttpDelete]
+        [HttpDelete(Name = "Delete_1")]
         public async Task<IActionResult> Delete(int id)
         {
-            CrudUserFlow flow = new CrudUserFlow(new ZUnitOfWork());
-            Response response = flow.Delete(id);
+            Response response = workFlow.Delete(id);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();

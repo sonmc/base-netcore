@@ -1,4 +1,4 @@
-﻿  
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Base.Utils;
 using Base.Services;
@@ -10,15 +10,16 @@ namespace Base.Application.UseCase.Auth
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        AuthFlow flow;
-        public AuthController() {
-              flow = new AuthFlow(new ZUnitOfWork());
+        AuthFlow workFlow;
+        public AuthController()
+        {
+            workFlow = new AuthFlow(new ZUnitOfWork());
         }
 
-        [HttpPost("login")]
+        [HttpPost("login", Name = "Login_")]
         public IActionResult Login([FromBody] AuthPresenter model)
         {
-            Response response = flow.Login(model.Username, model.Password);
+            Response response = workFlow.Login(model.Username, model.Password);
             if (response.Status == Message.ERROR)
             {
                 return Unauthorized();
@@ -30,16 +31,16 @@ namespace Base.Application.UseCase.Auth
             return Ok();
         }
 
-        [HttpPost("refresh-token")]
+        [HttpPost("refresh-token", Name = "RefreshToken_")]
         public IActionResult RefreshToken([FromBody] TokenPresenter tokenParam)
         {
-           
+
             if (string.IsNullOrWhiteSpace(tokenParam.RefreshToken))
             {
                 return Unauthorized();
             }
-           
-            Response response = flow.RefreshToken(tokenParam.AccessToken, tokenParam.RefreshToken);
+
+            Response response = workFlow.RefreshToken(tokenParam.AccessToken, tokenParam.RefreshToken);
             if (response.Status == Message.ERROR)
             {
                 return Unauthorized();
@@ -52,7 +53,7 @@ namespace Base.Application.UseCase.Auth
         }
 
         [Authorize]
-        [HttpGet("logout")]
+        [HttpGet("logout", Name = "Logout_")]
         public IActionResult Logout()
         {
             string token = Request.Headers[JwtUtil.ACCESS_TOKEN];
