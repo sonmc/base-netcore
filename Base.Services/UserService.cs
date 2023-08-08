@@ -44,7 +44,21 @@ namespace Base.Services
 
         public bool CheckPermissionAction(int userId, string action)
         {
-            throw new NotImplementedException();
+            // solution 1
+            //PermSchema perm = (from p in context.Perms
+            //                         join gp in context.GroupsPerms on p.Id equals gp.PermId
+            //                         join g in context.Groups on gp.GroupId equals g.Id
+            //                         join ug in context.UsersGroups on g.Id equals ug.GroupId
+            //                         where ug.UserId == userId && p.Action == action
+            //                         select p).FirstOrDefault();
+            // return perm != null;
+
+            PermSchema perm = context.Perms.Where(x => x.Action == action).FirstOrDefault();
+            UserSchema user = context.Users.Where(x => x.Id == userId).FirstOrDefault();
+            bool isHasPerm = user.GroupIds.Contains(perm.ProfileTypes);
+            return isHasPerm;
         }
+
+        
     }
 }

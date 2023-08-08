@@ -18,15 +18,15 @@ namespace Base.Application.Middleware
             _next = next; 
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IUnitOfWork uow)
         {
             try
             {
-                //var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                //if (token != null)
-                //{
-                //    AttachUserToContext(context, uow, token);
-                //}
+                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                if (token != null)
+                {
+                    AttachUserToContext(context, uow, token);
+                }
                 await _next(context);
             } 
             catch (Exception ex)
@@ -63,12 +63,12 @@ namespace Base.Application.Middleware
                 context.Items["User"] = user;
                 if (user.Id != UserRule.ADMIN_ID)
                 {
-                    CheckPermission(context, user.Id, uow.Users);
+                    CheckPermission(context, user.Id, uow);
                 } 
             }
         }
 
-        private void CheckPermission(HttpContext context, int userId, IUser userService)
+        private void CheckPermission(HttpContext context, int userId, IUnitOfWork uow)
         {
             var header = context.Request.Path.Value;
             bool isRequestApi = header.Contains("/api/");
@@ -86,7 +86,7 @@ namespace Base.Application.Middleware
                     action = apiRequest[0];
                 }
 
-                bool isAccess = userService.CheckPermissionAction(userId, action);
+                bool isAccess = uow.Users.CheckPermissionAction(userId, action);
                 if (!isAccess)
                 {
                     throw new ForbiddenException();

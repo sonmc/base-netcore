@@ -1,8 +1,7 @@
 ﻿
 using Base.Core.Schemas;
 using Base.Services;
-using Base.Utils;
-using static Base.Utils.CtrlUtil;
+using Base.Utils; 
 
 namespace Base.Application.UseCase.SyncAllPerm
 {
@@ -31,7 +30,7 @@ namespace Base.Application.UseCase.SyncAllPerm
             {
                 for (int i = 0; i < groups.Count; i++)
                 {
-                    if (groups[i].ProfileType.Contains(perm.ProfileTypes) || perm.ProfileTypes == RoleType.PUBLIC_PROFILE)
+                    if (groups[i].ProfileType.Contains(perm.ProfileTypes) || perm.ProfileTypes == CtrlUtil.RoleType.PUBLIC_PROFILE)
                     {
                         GroupPerm gp = new GroupPerm();
                         gp.Perm = perm;
