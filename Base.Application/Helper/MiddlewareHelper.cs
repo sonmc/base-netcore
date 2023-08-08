@@ -39,7 +39,7 @@ namespace Base.Application.Helper
                     statusCode = (int)HttpStatusCode.InternalServerError;
                     errorDetail = new
                     {
-                        Source = "KE Backend",
+                        Source = "Core Base",
                         ExceptionMessage = exception.Message,
                         InnerExceptionMessage = exception.InnerException != null ? exception.InnerException.Message : "",
                         StackTrace = exception.StackTrace

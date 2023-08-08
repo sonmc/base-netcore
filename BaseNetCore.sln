@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.Utils", "Base.Utils\Ba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.Business", "Base.Business\Base.Business.csproj", "{ABCCEC68-1139-4A53-A25C-0A2D36C5D4F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.IntegrationTests", "Base.IntegrationTests\Base.IntegrationTests.csproj", "{D32836E4-3429-4AA7-B2AB-D040CD1A9F7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.IntegrationTests", "Base.IntegrationTests\Base.IntegrationTests.csproj", "{D32836E4-3429-4AA7-B2AB-D040CD1A9F7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.UnitTest", "Base.UnitTest\Base.UnitTest.csproj", "{5F50FB63-3BF6-4229-898F-7D427CA62548}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.UnitTest", "Base.UnitTest\Base.UnitTest.csproj", "{5F50FB63-3BF6-4229-898F-7D427CA62548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

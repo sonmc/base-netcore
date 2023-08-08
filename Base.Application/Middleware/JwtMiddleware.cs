@@ -1,4 +1,5 @@
-﻿using Base.Business.Rule;
+﻿using Base.Application.Helper;
+using Base.Business.Rule;
 using Base.Core.Exception;
 using Base.Core.Schemas;
 using Base.Services;
@@ -28,16 +29,17 @@ namespace Base.Application.Middleware
                     AttachUserToContext(context, uow, token);
                 }
                 await _next(context);
-            } 
+            }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                var middlewareHelper = new MiddlewareHelper();
+                await middlewareHelper.HandleExceptionAsync(context, ex);
             }
         }
 
         private void AttachUserToContext(HttpContext context, IUnitOfWork uow, string token)
         {
-            if (context.Request.Path.Value != null && context.Request.Path.Value.ToLower() == "/api/auth/refreshtoken")
+            if (context.Request.Path.Value != null && context.Request.Path.Value.ToLower() == "/api/auth/refresh-token")
             {
                 return;
             }
@@ -75,18 +77,18 @@ namespace Base.Application.Middleware
             if (isRequestApi)
             {
                 var apiRequest = header.Replace("/api/", "").Split("/");
-                string action = "";
+                string endPoint = "";
                 if (apiRequest.Length > 1)
                 {
                     var isNumeric = apiRequest.Length == 2 ? int.TryParse(apiRequest[1], out int n) : false;
-                    action = isNumeric ? apiRequest[0] : apiRequest[0] + "/" + apiRequest[1];
+                    endPoint = isNumeric ? apiRequest[0] : apiRequest[0] + "/" + apiRequest[1];
                 }
                 else
                 {
-                    action = apiRequest[0];
+                    endPoint = apiRequest[0];
                 }
 
-                bool isAccess = uow.Users.CheckPermissionAction(userId, action);
+                bool isAccess = uow.Users.CheckPermissionAction(userId, endPoint);
                 if (!isAccess)
                 {
                     throw new ForbiddenException();

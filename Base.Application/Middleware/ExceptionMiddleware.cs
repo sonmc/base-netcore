@@ -1,5 +1,4 @@
 ﻿using Base.Application.Helper;
-using Microsoft.Extensions.Localization;
 
 
 namespace Base.Application.Middleware

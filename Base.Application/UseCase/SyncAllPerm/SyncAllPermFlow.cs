@@ -1,7 +1,7 @@
 ﻿
 using Base.Core.Schemas;
 using Base.Services;
-using Base.Utils; 
+using Base.Utils;
 
 namespace Base.Application.UseCase.SyncAllPerm
 {
@@ -19,7 +19,7 @@ namespace Base.Application.UseCase.SyncAllPerm
             List<GroupSchema> groups = CreateGroupPerm(perms);
             AddUserToGroup(groups);
             Response response = new Response("success", perms);
-            return response; 
+            return response;
         }
 
         private List<GroupSchema> CreateGroupPerm(List<PermSchema> perms)
@@ -51,8 +51,8 @@ namespace Base.Application.UseCase.SyncAllPerm
             foreach (var router in routers)
             {
                 PermSchema permSchema = new PermSchema();
-                permSchema.Action = router.Action;
-                permSchema.Title = StrUtil.ConvertCamelToTitle(router.Action);
+                permSchema.Action = router.Template.Replace("api/", "");
+                permSchema.Title = StrUtil.ConvertCamelToTitle(router.Name.Split('_')[0]);
                 permSchema.ProfileTypes = "[" + router.Name.Split('_')[1] + "]";
                 permSchema.Module = router.Module;
                 perms.Add(permSchema);

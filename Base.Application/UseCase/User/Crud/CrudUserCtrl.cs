@@ -38,7 +38,7 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response.Result);
         }
 
-        [HttpGet(Name = "List_1")]
+        [HttpGet("get", Name = "ListUser_1")]
         public async Task<IActionResult> List(string sortName, string sortType = "asc", int cursor = 0, int pageSize = 10)
         {
             Response response = workFlow.List();
@@ -53,7 +53,7 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(res);
         }
 
-        [HttpPost(Name = "Create_1")]
+        [HttpPost(Name = "CreateUser_1")]
         public async Task<IActionResult> Create([FromBody] CreateUserPresenter model)
         {
             UserSchema user = _mapper.Map<UserSchema>(model);
@@ -65,7 +65,7 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response);
         }
 
-        [HttpPut(Name = "Update_1")]
+        [HttpPut(Name = "UpdateUser_1")]
         public async Task<IActionResult> Update([FromBody] UpdateUserPresenter model)
         {
             UserSchema user = _mapper.Map<UserSchema>(model);
@@ -77,7 +77,7 @@ namespace Base.Application.UseCase.User.Crud
             return Ok(response);
         }
 
-        [HttpDelete(Name = "Delete_1")]
+        [HttpDelete(Name = "DeleteUser_1")]
         public async Task<IActionResult> Delete(int id)
         {
             Response response = workFlow.Delete(id);

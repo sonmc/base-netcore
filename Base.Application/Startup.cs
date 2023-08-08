@@ -6,7 +6,8 @@ using Base.Application.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text; 
+using System.Text;
+using Base.Services;
 
 namespace Base.Application
 {
@@ -35,6 +36,7 @@ namespace Base.Application
             services.AddControllers();
             services.AddSwaggerGen(); 
             services.AddMvc();
+            services.AddScoped<IUnitOfWork, ZUnitOfWork>();
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             // configure jwt authentication
