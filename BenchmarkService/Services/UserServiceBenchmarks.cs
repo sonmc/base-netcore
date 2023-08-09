@@ -4,7 +4,7 @@ using Base.Core;
 using Base.Services;
 using BenchmarkDotNet.Attributes;
 
-namespace BenchmarkService
+namespace BenchmarkService.Services
 {
     [MemoryDiagnoser]
     public class UserServiceBenchmarks

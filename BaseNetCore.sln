@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.Business", "Base.Busin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.UnitTest", "Base.UnitTest\Base.UnitTest.csproj", "{5F50FB63-3BF6-4229-898F-7D427CA62548}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkService", "BenchmarkService\BenchmarkService.csproj", "{C0344680-C73E-40AA-902C-FBD41D5C781E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base.Benchmark", "BenchmarkService\Base.Benchmark.csproj", "{C0344680-C73E-40AA-902C-FBD41D5C781E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

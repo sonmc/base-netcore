@@ -1,6 +1,7 @@
 ﻿
 
 using BenchmarkDotNet.Running;
+using BenchmarkService.Services;
 
 namespace BenchmarkService
 {
