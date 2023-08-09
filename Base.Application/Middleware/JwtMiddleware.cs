@@ -3,7 +3,7 @@ using Base.Business.Rule;
 using Base.Core.Exception;
 using Base.Core.Schemas;
 using Base.Services.Base;
-using Base.Utils;
+using Base.Utils; 
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -69,7 +69,7 @@ namespace Base.Application.Middleware
                 } 
             }
         }
-
+         
         private void CheckPermission(HttpContext context, int userId, IUnitOfWork uow)
         {
             var header = context.Request.Path.Value;
