@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Base.Utils;
-using Base.Services;
+using Base.Services.Base;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Base.Application.UseCase.Auth
@@ -13,7 +13,7 @@ namespace Base.Application.UseCase.Auth
         AuthFlow workFlow;
         public AuthController()
         {
-            workFlow = new AuthFlow(new ZUnitOfWork());
+            workFlow = new AuthFlow(new UnitOfWork());
         }
 
         [HttpPost("login", Name = "Login_")]

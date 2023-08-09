@@ -1,9 +1,8 @@
-﻿
-using Base.Services;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Base.Utils;
-using Base.Core.Schemas; 
+using Base.Core.Schemas;
+using Base.Services.Base;
 
 namespace Base.Application.UseCase.Auth
 {

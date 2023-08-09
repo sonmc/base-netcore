@@ -1,8 +1,7 @@
-﻿
-using Base.Core;
+﻿using Base.Core;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Base.Services
+namespace Base.Services.Base
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -10,7 +9,7 @@ namespace Base.Services
         IUser Users { get; }
         IPerm Perms { get; }
         IGroup Groups { get; }
-        IGroupPerm GroupsPerms {get;}
+        IGroupPerm GroupsPerms { get; }
         IUserGroup UsersGroups { get; }
 
         int SaveChanges();
@@ -19,7 +18,7 @@ namespace Base.Services
         IDbContextTransaction BeginTransaction();
     }
 
-    public class ZUnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext dbContext;
 
@@ -29,37 +28,37 @@ namespace Base.Services
         public IGroup Groups { get; }
         public IGroupPerm GroupsPerms { get; }
         public IUserGroup UsersGroups { get; }
-         
 
-        public ZUnitOfWork()
+
+        public UnitOfWork()
         {
-            this.dbContext = new DataContext();
-            this.Auth = new AuthService(this.dbContext);
-            this.Users = new UserService(this.dbContext);
-            this.Perms = new PermService(this.dbContext);
-            this.Groups = new GroupService(this.dbContext);
-            this.GroupsPerms = new GroupPermService(this.dbContext);
-            this.UsersGroups = new UserGroupService(this.dbContext);
+            dbContext = new DataContext();
+            Auth = new AuthService(dbContext);
+            Users = new UserService(dbContext);
+            Perms = new PermService(dbContext);
+            Groups = new GroupService(dbContext);
+            GroupsPerms = new GroupPermService(dbContext);
+            UsersGroups = new UserGroupService(dbContext);
         }
 
         public IExecutionStrategy CreateExecutionStrategy()
         {
-            return this.dbContext.Database.CreateExecutionStrategy();
+            return dbContext.Database.CreateExecutionStrategy();
         }
 
         public IDbContextTransaction BeginTransaction()
         {
-            return this.dbContext.Database.BeginTransaction();
+            return dbContext.Database.BeginTransaction();
         }
 
         public int SaveChanges()
         {
-            return this.dbContext.SaveChanges();
+            return dbContext.SaveChanges();
         }
 
         public Task SaveChangesAsync()
         {
-            return this.dbContext.SaveChangesAsync();
+            return dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -72,7 +71,7 @@ namespace Base.Services
         {
             if (disposing)
             {
-                this.dbContext.Dispose();
+                dbContext.Dispose();
             }
         }
     }

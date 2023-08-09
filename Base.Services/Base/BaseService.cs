@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore; 
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Base.Services
+namespace Base.Services.Base
 {
     public interface IBaseService<T> where T : class
     {
@@ -10,14 +10,14 @@ namespace Base.Services
         T Get(int id);
         T Delete(int id);
     }
-     
-    public abstract class ZBaseService<TEntity, TContext>
+
+    public abstract class BaseService<TEntity, TContext>
             where TEntity : class
             where TContext : DbContext
     {
         private readonly TContext context;
 
-        public ZBaseService(TContext context)
+        public BaseService(TContext context)
         {
             this.context = context;
         }

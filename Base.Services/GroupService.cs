@@ -1,5 +1,6 @@
 ﻿using Base.Core;
 using Base.Core.Schemas;
+using Base.Services.Base;
 
 namespace Base.Services
 {
@@ -8,7 +9,7 @@ namespace Base.Services
     {
     }
 
-    public class GroupService : ZBaseService<GroupSchema, DataContext>, IGroup
+    public class GroupService : BaseService<GroupSchema, DataContext>, IGroup
     {
 
         private readonly DataContext context;

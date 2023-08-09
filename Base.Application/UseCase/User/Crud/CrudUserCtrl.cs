@@ -1,10 +1,10 @@
 ﻿using Base.Core.Schemas;
 using Base.Utils;
-using Base.Services;
 using Microsoft.AspNetCore.Mvc;
 using Base.Application.UseCase.User.Crud.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Base.Services.Base;
 
 namespace Base.Application.UseCase.User.Crud
 {
@@ -18,7 +18,7 @@ namespace Base.Application.UseCase.User.Crud
         public CrudUserCtrl(IMapper mapper)
         {
             _mapper = mapper;
-            workFlow = new CrudUserFlow(new ZUnitOfWork());
+            workFlow = new CrudUserFlow(new UnitOfWork());
         }
 
         [HttpGet("get-current-user", Name = "GetCurentUser_1")]

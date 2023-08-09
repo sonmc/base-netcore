@@ -1,6 +1,6 @@
 ﻿
 using Base.Core.Schemas;
-using Base.Services;
+using Base.Services.Base;
 using Base.Utils;
 
 namespace Base.Application.UseCase.SyncAllPerm

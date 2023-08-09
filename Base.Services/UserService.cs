@@ -1,6 +1,6 @@
 ﻿using Base.Core;
-using Base.Core.Schemas; 
-
+using Base.Core.Schemas;
+using Base.Services.Base;
 
 namespace Base.Services
 {
@@ -12,7 +12,7 @@ namespace Base.Services
         bool CheckPermissionAction(int user, string endPoint);
     }
 
-    public class UserService : ZBaseService<UserSchema, DataContext>, IUser
+    public class UserService : BaseService<UserSchema, DataContext>, IUser
     {
 
         private readonly DataContext context;

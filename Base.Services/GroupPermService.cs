@@ -1,5 +1,6 @@
 ﻿using Base.Core;
 using Base.Core.Schemas;
+using Base.Services.Base;
 
 namespace Base.Services
 {
@@ -9,7 +10,7 @@ namespace Base.Services
         List<GroupPerm> Creates(List<GroupPerm> perms);
     }
 
-    public class GroupPermService : ZBaseService<GroupPerm, DataContext>, IGroupPerm
+    public class GroupPermService : BaseService<GroupPerm, DataContext>, IGroupPerm
     {
 
         private readonly DataContext context;

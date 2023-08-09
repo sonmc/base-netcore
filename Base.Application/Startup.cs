@@ -2,12 +2,12 @@
 using Base.Core;
 using Base.Utils;
 using Base.Application.Middleware;
-using Base.Application.Helper; 
+using Base.Application.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Base.Services;
+using Base.Services.Base;
 
 namespace Base.Application
 {
@@ -36,7 +36,7 @@ namespace Base.Application
             services.AddControllers();
             services.AddSwaggerGen(); 
             services.AddMvc();
-            services.AddScoped<IUnitOfWork, ZUnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             // configure jwt authentication
@@ -59,7 +59,8 @@ namespace Base.Application
                     ValidateAudience = false
                 };
             });
-            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.0.28-mysql"))); 
+            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.0.28-mysql")));
+      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,8 +73,7 @@ namespace Base.Application
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-            });
-            app.UseRouting();
+            }); 
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();

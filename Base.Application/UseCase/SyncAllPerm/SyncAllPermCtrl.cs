@@ -1,8 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using Base.Services;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Base.Services.Base;
 
 namespace Base.Application.UseCase.SyncAllPerm
 {
@@ -14,7 +14,7 @@ namespace Base.Application.UseCase.SyncAllPerm
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         public SyncAllPermController(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
         {
-            flow = new SyncAllPermFlow(new ZUnitOfWork());
+            flow = new SyncAllPermFlow(new UnitOfWork());
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
         }
 
