@@ -43,7 +43,7 @@ Complexity only belongs to engines. Engines is the only places we consider when 
 It potential become big ball of mugs because it can do almost everything. So use / design it with care.
 
 # Project structure
-
+```
 ├───Base.Application
 │   ├───Helpers
 │   ├───Middlewares
@@ -77,3 +77,4 @@ It potential become big ball of mugs because it can do almost everything. So use
     ├───BenchmarkDotNet.Artifacts
     │   └───results
     └───Services
+```
