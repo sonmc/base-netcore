@@ -73,8 +73,8 @@ It potential become big ball of mugs because it can do almost everything. So use
 │   │   └───MockData
 │   └───WorkflowTests
 ├───Base.Utils
-└───BenchmarkService
-    ├───BenchmarkDotNet.Artifacts
+└───Base.Benchmark
+    ├───Base.BenchmarkDotNet.Artifacts
     │   └───results
     └───Services
 ```
