@@ -1,4 +1,4 @@
-# development cd Base.Application
+﻿# development cd Base.Application
 
 $ dotnet run
 
@@ -41,3 +41,39 @@ Design decision The tradeoff of letting engine do prohibited things will take so
 Complexity only belongs to engines. Engines is the only places we consider when breaking out monolith system to service based one. It's convenient to work with. It's have no negative impact about changing requirements. It help us to deal with changing requirements with ease because with have more flexibility. Some drawback:
 
 It potential become big ball of mugs because it can do almost everything. So use / design it with care.
+
+# Project structure
+
+├───Base.Application
+│   ├───Helpers
+│   ├───Middlewares
+│   ├───Properties
+│   └───UseCases
+│       ├───Auth
+│       ├───GetOptions
+│       ├───SyncAllPerm
+│       └───User
+│           ├───Crud
+│           │   └───Presenter
+│           └───GetCurrentUser
+├───Base.Business
+│   ├───ActionLogics
+│   └───Rules
+├───Base.Core
+│   ├───Database
+│   ├───ExceptionHandle
+│   ├───Migrations
+│   └───Schemas
+├───Base.Services
+│   ├───Base
+├───Base.UnitTest
+│   ├───ControllerTests
+│   │   └───MockData
+│   ├───ServiceTests
+│   │   └───MockData
+│   └───WorkflowTests
+├───Base.Utils
+└───BenchmarkService
+    ├───BenchmarkDotNet.Artifacts
+    │   └───results
+    └───Services

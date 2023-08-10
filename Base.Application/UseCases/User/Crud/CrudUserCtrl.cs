@@ -1,7 +1,6 @@
 ﻿using Base.Core.Schemas;
 using Base.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Base.Application.UseCase.User.Crud.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Base.Services.Base;
@@ -20,23 +19,7 @@ namespace Base.Application.UseCase.User.Crud
             _mapper = mapper;
             workFlow = new CrudUserFlow(new UnitOfWork());
         }
-
-        [HttpGet("get-current-user", Name = "GetCurentUser_1")]
-        public IActionResult GetCurentUser()
-        {
-
-            string token = Request.Cookies[JwtUtil.ACCESS_TOKEN];
-            if (string.IsNullOrEmpty(token))
-            {
-                return Unauthorized();
-            }
-            Response response = workFlow.GetCurrentUser(token);
-            if (response.Status == Message.ERROR)
-            {
-                return Unauthorized();
-            }
-            return Ok(response.Result);
-        }
+         
 
         [HttpGet(Name = "ListUser_1")]
         public async Task<IActionResult> List(string sortName = "Id", string sortType = "ASC", int cursor = 0, int pageSize = 10)

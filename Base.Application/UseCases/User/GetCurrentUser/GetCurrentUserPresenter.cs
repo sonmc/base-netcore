@@ -1,9 +1,9 @@
-﻿using Base.Core.Schemas; 
+﻿using Base.Core.Schemas;
 
-namespace Base.Application.UseCase.User.Crud
+namespace Base.Application.UseCases.User.GetCurrentUser
 {
-    public class CrudUserPresenter
-    {  
+    public class GetCurrentUserPresenter
+    {
         public static List<UserSchema> PresentList(List<UserSchema> items)
         {
             var result = new List<UserSchema>();

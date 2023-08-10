@@ -2,13 +2,13 @@
 using Base.Utils;
 using Base.Services.Base;
 
-namespace Base.Application.UseCase.User.Crud
+namespace Base.Application.UseCase.User
 {
 
-    public class CrudUserFlow
+    public class GetCurrentUserFlow
     { 
         private readonly IUnitOfWork uow;
-        public CrudUserFlow(IUnitOfWork _uow)
+        public GetCurrentUserFlow(IUnitOfWork _uow)
         {
             uow = _uow; 
         }

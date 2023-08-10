@@ -2,7 +2,7 @@
 using Base.Core.Schemas;
 using System.ComponentModel.DataAnnotations; 
 
-namespace Base.Application.UseCase.User.Crud.Model
+namespace Base.Application.UseCase.User.Crud
 {
     public class CreateUserPresenter
     {

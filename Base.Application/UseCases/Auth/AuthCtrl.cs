@@ -31,7 +31,7 @@ namespace Base.Application.UseCase.Auth
             return Ok();
         }
 
-        [HttpPost("refresh-token", Name = "RefreshToken_")]
+        [HttpGet("refresh-token", Name = "RefreshToken_")]
         public IActionResult RefreshToken([FromBody] TokenPresenter tokenParam)
         {
 

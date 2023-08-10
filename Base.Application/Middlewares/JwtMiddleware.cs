@@ -23,7 +23,7 @@ namespace Base.Application.Middleware
         {
             try
             {
-                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                var token = context.Request.Cookies["access_token"];
                 if (token != null)
                 {
                     AttachUserToContext(context, uow, token);
