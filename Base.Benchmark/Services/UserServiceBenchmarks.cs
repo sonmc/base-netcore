@@ -9,25 +9,22 @@ namespace BenchmarkService.Services
     [MemoryDiagnoser]
     public class UserServiceBenchmarks
     {
-        private DataContext context; // Initialize your database context
+        private DataContext context;
         private UserService userService;
 
         public UserServiceBenchmarks()
         {
-            context = new DataContext(); // Initialize your database context
-            userService = new UserService(context); // Initialize an instance of your UserService class
+            context = new DataContext();
+            userService = new UserService(context);
         }
 
         [Benchmark]
         public bool CheckPermissionS1Benchmark()
         {
-            return userService.CheckPermissionActionS1(1, "users"); // Call your UpdateLoginTime method
+            int userId = 1;
+            string apiEndpoint = "users";
+            return userService.CheckPermissionAction(userId, apiEndpoint);
         }
 
-        [Benchmark]
-        public bool CheckPermissionS2Benchmark()
-        {
-            return userService.CheckPermissionActionS2(1, "users"); // Call your UpdateLoginTime method
-        }
     }
 }

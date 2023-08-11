@@ -60,29 +60,7 @@ namespace Base.Services
              
             return perm != null;
         }
-
-        public bool CheckPermissionActionS1(int userId, string endPoint)
-        {
-            // solution 1
-            PermSchema perm = (from p in context.Perms
-                               join gp in context.GroupsPerms on p.Id equals gp.PermId
-                               join g in context.Groups on gp.GroupId equals g.Id
-                               join ug in context.UsersGroups on g.Id equals ug.GroupId
-                               where ug.UserId == userId && p.Action == endPoint
-                               select p).FirstOrDefault();
-            return perm != null;
-
-        }
-        public bool CheckPermissionActionS2(int userId, string endPoint)
-        { 
-            // solution 2
-            PermSchema perm = context.Perms.Where(x => x.Action == endPoint).FirstOrDefault();
-            if (perm == null) return false;
-            UserSchema user = context.Users.Where(x => x.Id == userId).FirstOrDefault();
-            if (user == null) return false;
-            bool isHasPerm = user.GroupIds.Contains(perm.ProfileTypes);
-            return isHasPerm;
-        }
+         
 
     }
 }
