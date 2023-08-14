@@ -1,17 +1,23 @@
-version: '3.0'
-
+version: '3.8'
+ 
 services:
-   db:
+  web:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Default=Server=61.14.233.25;Database=base_core;User=root;Password=123456
+  db:
      image: mysql:latest
      environment:
-       MYSQL_DATABASE: base_core
-       MYSQL_PASSWORD: 123456
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=base_core
      volumes:
        - dbdata:/var/lib/mysql
        - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d
      restart: always
-
-   base_core:
+  base_core:
      depends_on:
        - db
      image: codemazeblog/accountowner:runtime
