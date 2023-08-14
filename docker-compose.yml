@@ -6,7 +6,6 @@ services:
      environment:
        MYSQL_RANDOM_ROOT_PASSWORD: 123456
        MYSQL_DATABASE: base_core
-       MYSQL_USER: root
        MYSQL_PASSWORD: 123456
      volumes:
        - dbdata:/var/lib/mysql
