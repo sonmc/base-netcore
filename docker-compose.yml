@@ -1,26 +1,32 @@
-version: '3.0'
+version: '3.8'
 
 services:
-   db:
-     image: mysql:8.0
-     environment:
-       MYSQL_RANDOM_ROOT_PASSWORD: 1
-       MYSQL_DATABASE: base_core
-       MYSQL_USER: sonmc
-       MYSQL_PASSWORD: 123456
-     volumes:
-       - dbdata:/var/lib/mysql
-       - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d
-     restart: always
+  web:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Default=Server=db;Database=base_core;User=sonmc;Password=123456
+    networks:
+      - mynetwork  # Linking the web service to the custom network
 
-   base_core:
-     depends_on:
-       - db
-     image: codemazeblog/base_core:runtime
-     build:
-       context: .
-     ports:
-       - "3307:3306"
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=base_core
+      - POSTGRES_USER=sonmc
+      - POSTGRES_PASSWORD=123456
+    networks:
+      - mynetwork  # Linking the db service to the custom network
+
+networks:
+  mynetwork:  # Defining a custom network
+    driver: bridge
 
 volumes:
-    dbdata:
+  pgdata:
