@@ -4,7 +4,6 @@ services:
    db:
      image: mysql:latest
      environment:
-       MYSQL_RANDOM_ROOT_PASSWORD: 123456
        MYSQL_DATABASE: base_core
        MYSQL_PASSWORD: 123456
      volumes:
