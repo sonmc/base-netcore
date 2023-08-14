@@ -7,7 +7,7 @@ services:
       - "5001:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__Default=Server=base-netcore-db-1;Database=base_core;User=root;Password=123456
+      - ConnectionStrings__Default=Server=db;Database=base_core;User=root;Password=123456
 
   db:
     image: mysql:latest
