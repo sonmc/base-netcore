@@ -8,8 +8,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__Default=Server=db;Database=base_core;User=sonmc;Password=123456
-    networks:
-      - mynetwork 
   db:
     image: mysql:latest
     ports:
@@ -22,3 +20,5 @@ services:
 
 volumes:
   mysql_data:
+
+
