@@ -9,24 +9,16 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__Default=Server=db;Database=base_core;User=sonmc;Password=123456
     networks:
-      - mynetwork  # Linking the web service to the custom network
-
+      - mynetwork 
   db:
-    image: postgres:15
+    image: mysql:latest
     ports:
-      - "5432:5432"
+      - "3307:3306"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     environment:
-      - POSTGRES_DB=base_core
-      - POSTGRES_USER=sonmc
-      - POSTGRES_PASSWORD=123456
-    networks:
-      - mynetwork  # Linking the db service to the custom network
-
-networks:
-  mynetwork:  # Defining a custom network
-    driver: bridge
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=base_core
 
 volumes:
-  pgdata:
+  mysql_data:
