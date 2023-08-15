@@ -12,14 +12,7 @@ using Base.Services.Base;
 namespace Base.Application
 {
     public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
+    { 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,11 +29,7 @@ namespace Base.Application
             services.AddControllers();
             services.AddSwaggerGen(); 
             services.AddMvc();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-            // configure jwt authentication
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); 
             var key = Encoding.ASCII.GetBytes(JwtUtil.SECRET_KEY);
             services.AddAuthentication(x =>
             {
@@ -59,7 +48,6 @@ namespace Base.Application
                     ValidateAudience = false
                 };
             });
-            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.0.28-mysql")));
       
         }
 
