@@ -24,7 +24,7 @@ namespace BaseNetCore.Src.Services.Schemas
             DbContextOptionsBuilder optionsBuilder
         )
         {
-            var connectionString = "server=localhost;port=3306;database=test_db10;uid=root;password=123456";
+            var connectionString = "server=localhost;port=3307;database=base_core;uid=root;password=123456";
             optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.0.28-mysql"), builder =>
            {
                builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);

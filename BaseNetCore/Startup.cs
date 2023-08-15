@@ -56,7 +56,7 @@ namespace BaseNetCore
                     ValidateAudience = false
                 };
             });
-            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.0.28-mysql")));
+            services.AddDbContext<DataContext>(x => x.UseMySql(appSettings.ConnectionStrings, ServerVersion.Parse("8.1.0-mysql")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
