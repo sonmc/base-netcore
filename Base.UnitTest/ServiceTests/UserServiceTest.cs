@@ -28,12 +28,9 @@ namespace Base.UnitTest.ServiceTest
             /// Arrange
             _context.Users.AddRange(users);
             _context.SaveChanges();
-
             var userService = new UserService(_context);
-
             /// Act
             var result = userService.GetAll();
-
             /// Assert
             result.Should().HaveCount(users.Count);
         }

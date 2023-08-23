@@ -28,7 +28,7 @@ namespace Base.Core
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = "server=localhost;port=3306;database=base_core_v1;uid=root;password=123456";
+                var connectionString = "server=db;port=3300;database=base_core_v1;uid=root;password=123456";
                 optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.0.28-mysql"),
                     builder =>
                     {
