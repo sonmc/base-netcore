@@ -2,13 +2,10 @@
 using Base.Application.UseCase;
 using Base.Services.Base;
 using Base.Utils;
-using Microsoft.AspNetCore.Mvc; 
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Base.Application.UseCases.GetOptions
 {
-
-    [Authorize]
     [ApiController]
     [Route("api")]
     public class GetOptionCtrl : ControllerBase

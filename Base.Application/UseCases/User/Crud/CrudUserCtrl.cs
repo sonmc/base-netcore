@@ -2,12 +2,10 @@
 using Base.Utils;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Base.Services.Base;
 
 namespace Base.Application.UseCase.User.Crud
 {
-    [Authorize]
     [ApiController]
     [Route("api/users")]
     public class CrudUserCtrl : ControllerBase
