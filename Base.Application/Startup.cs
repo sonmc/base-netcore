@@ -6,7 +6,7 @@ using Base.Application.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Base.Services.Base;
+using Base.Services;
 
 namespace Base.Application
 {

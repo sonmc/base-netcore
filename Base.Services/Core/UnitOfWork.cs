@@ -1,11 +1,10 @@
 ﻿using Base.Core;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Base.Services.Base
+namespace Base.Services
 {
     public interface IUnitOfWork : IDisposable
-    {
-        IAuth Auth { get; }
+    { 
         IUser Users { get; }
         IPerm Perms { get; }
         IGroup Groups { get; }
@@ -21,8 +20,7 @@ namespace Base.Services.Base
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext dbContext;
-
-        public IAuth Auth { get; }
+         
         public IUser Users { get; }
         public IPerm Perms { get; }
         public IGroup Groups { get; }
@@ -32,8 +30,7 @@ namespace Base.Services.Base
 
         public UnitOfWork()
         {
-            dbContext = new DataContext();
-            Auth = new AuthService(dbContext);
+            dbContext = new DataContext(); 
             Users = new UserService(dbContext);
             Perms = new PermService(dbContext);
             Groups = new GroupService(dbContext);

@@ -7,19 +7,19 @@ namespace Base.Benchmark.Services
     public class AuthServiceBenchmarks
     {
         private DataContext context;
-        private AuthService authService;
+        private UserService userService;
 
         public AuthServiceBenchmarks()
         {
             context = new DataContext();
-            authService = new AuthService(context);
+            userService = new UserService(context);
         }
 
         [Benchmark]
         public void CheckPermissionS1Benchmark()
         {
             int userId = 1;
-            authService.UpdateLoginTime(userId);
+            userService.UpdateLoginTime(userId);
         }
     }
 }

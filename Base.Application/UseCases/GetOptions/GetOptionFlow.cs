@@ -1,6 +1,4 @@
-﻿
-using Base.Services;
-using Base.Services.Base;
+﻿using Base.Services;
 using Base.Utils;
 
 namespace Base.Application.UseCases

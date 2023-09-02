@@ -1,6 +1,5 @@
 ﻿using Base.Core.Schemas;
 using Base.Utils;
-using Base.Services.Base;
 using Base.Services;
 
 namespace Base.Application.UseCases

@@ -1,4 +1,3 @@
-/SC_API/obj
 /.vs
 *.swp
 *.*~
@@ -35,5 +34,3 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 .vs/
-Migrations
-appsettings.json

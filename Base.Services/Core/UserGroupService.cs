@@ -1,6 +1,5 @@
 ﻿using Base.Core.Schemas;
 using Base.Core;
-using Base.Services.Base;
 
 namespace Base.Services
 {
@@ -16,7 +15,7 @@ namespace Base.Services
         private readonly DataContext context;
         public UserGroupService(DataContext _ctx) : base(_ctx)
         {
-            this.context = _ctx;
+            context = _ctx;
         }
 
         public List<UsersGroups> Creates(List<UsersGroups> usersGroups)

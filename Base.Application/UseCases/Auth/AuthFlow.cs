@@ -2,7 +2,6 @@
 using System.Text;
 using Base.Utils;
 using Base.Core.Schemas;
-using Base.Services.Base;
 using Base.Services;
 
 namespace Base.Application.UseCases

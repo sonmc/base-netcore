@@ -1,9 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Base.Utils;
-using Base.Services.Base;
-using Microsoft.AspNetCore.Authorization;
 using Base.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Base.Application.UseCases
 {

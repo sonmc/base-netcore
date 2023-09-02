@@ -1,6 +1,5 @@
 ﻿using Base.Core;
 using Base.Core.Schemas;
-using Base.Services.Base;
 using System.Diagnostics;
 
 namespace Base.Services
@@ -12,16 +11,16 @@ namespace Base.Services
         List<UserSchema> Get(string name);
         bool CheckPermissionAction(int user, string endPoint);
     }
-     
+
 
     public class UserService : BaseService<UserSchema, DataContext>, IUser
     {
 
         private readonly DataContext context;
-       
+
         public UserService(DataContext _ctx) : base(_ctx)
         {
-            this.context = _ctx;
+            context = _ctx;
         }
 
         public UserSchema UpdateLoginTime(int userId)
@@ -41,13 +40,13 @@ namespace Base.Services
 
         public List<UserSchema> Get(string name)
         {
-            List<UserSchema> users = context.Users.Where(u=>u.UserName.Equals(name)).ToList();
+            List<UserSchema> users = context.Users.Where(u => u.UserName.Equals(name)).ToList();
             return users;
         }
-         
+
         public bool CheckPermissionAction(int userId, string endPoint)
         {
-            Stopwatch sw = new Stopwatch(); 
+            Stopwatch sw = new Stopwatch();
             sw.Start();
 
             PermSchema perm = (from p in context.Perms
@@ -57,10 +56,10 @@ namespace Base.Services
                                where ug.UserId == userId && p.Action == endPoint
                                select p).FirstOrDefault();
             sw.Stop();
-             
+
             return perm != null;
         }
-         
+
 
     }
 }

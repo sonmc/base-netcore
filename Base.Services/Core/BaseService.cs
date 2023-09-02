@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Base.Services.Base
+namespace Base.Services
 {
     public interface IBaseService<T> where T : class
     {

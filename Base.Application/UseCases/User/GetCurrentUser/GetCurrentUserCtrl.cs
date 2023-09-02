@@ -1,6 +1,5 @@
 ﻿using Base.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Base.Services.Base;
 using Base.Services;
 
 namespace Base.Application.UseCases

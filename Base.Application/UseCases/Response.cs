@@ -1,5 +1,5 @@
-﻿namespace Base.Services
-{ 
+﻿namespace Base.Application.UseCases
+{
     public class Response
     {
         public string Status { get; set; }

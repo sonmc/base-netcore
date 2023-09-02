@@ -1,5 +1,5 @@
 ﻿using Base.Application.UseCases;
-using Base.Services.Base;
+using Base.Services;
 using Base.Utils;
 using Xunit;
 

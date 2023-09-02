@@ -1,6 +1,6 @@
 ﻿
 using Base.Application.UseCases;
-using Base.Services.Base;
+using Base.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
