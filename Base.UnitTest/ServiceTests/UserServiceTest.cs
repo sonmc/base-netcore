@@ -1,5 +1,4 @@
-﻿
-using Base.Core;
+﻿using Base.Core;
 using Base.Services;
 using Base.UnitTest.ServiceTest.MockData;
 using FluentAssertions;
@@ -28,9 +27,7 @@ namespace Base.UnitTest.ServiceTest
             /// Arrange
             _context.Users.AddRange(users);
             _context.SaveChanges();
-
             var userService = new UserService(_context);
-
             /// Act
             var result = userService.FindAll();
 
