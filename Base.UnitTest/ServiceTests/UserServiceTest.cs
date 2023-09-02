@@ -32,7 +32,7 @@ namespace Base.UnitTest.ServiceTest
             var userService = new UserService(_context);
 
             /// Act
-            var result = userService.GetAll();
+            var result = userService.FindAll();
 
             /// Assert
             result.Should().HaveCount(users.Count);

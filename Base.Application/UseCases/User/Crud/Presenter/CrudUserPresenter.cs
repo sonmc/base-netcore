@@ -1,6 +1,6 @@
 ﻿using Base.Core.Schemas; 
 
-namespace Base.Application.UseCase.User.Crud
+namespace Base.Application.UseCases
 {
     public class CrudUserPresenter
     {  

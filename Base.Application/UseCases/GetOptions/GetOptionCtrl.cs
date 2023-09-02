@@ -1,11 +1,10 @@
-﻿ 
-using Base.Application.UseCase;
-using Base.Services.Base;
+﻿using Base.Services.Base;
 using Base.Utils;
 using Microsoft.AspNetCore.Mvc; 
 using Microsoft.AspNetCore.Authorization;
+using Base.Services;
 
-namespace Base.Application.UseCases.GetOptions
+namespace Base.Application.UseCases
 {
 
     [Authorize]

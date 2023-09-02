@@ -1,6 +1,6 @@
 ﻿
 
-using Base.Application.UseCase.User.Crud;
+using Base.Application.UseCases;
 
 namespace Base.Application.Helper
 {

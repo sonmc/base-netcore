@@ -4,11 +4,13 @@ namespace Base.Services.Base
 {
     public interface IBaseService<T> where T : class
     {
-        List<T> GetAll();
-        T Add(T entity);
+        T Create(T entity);
+        List<T> Creates(List<T> entities);
+        List<T> FindAll();
+        T FindOne(int id);
         T Update(T entity);
-        T Get(int id);
         T Delete(int id);
+        List<T> Deletes(int[] ids);
     }
 
     public abstract class BaseService<TEntity, TContext>
@@ -22,16 +24,28 @@ namespace Base.Services.Base
             this.context = context;
         }
 
-        public TEntity Add(TEntity entity)
+        public TEntity Create(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
             context.SaveChanges();
             return entity;
         }
 
-        public List<TEntity> GetAll()
+        public List<TEntity> Creates(List<TEntity> entities)
+        {
+            context.Set<TEntity>().AddRange(entities);
+            context.SaveChanges();
+            return entities;
+        }
+
+        public List<TEntity> FindAll()
         {
             return context.Set<TEntity>().ToList();
+        }
+
+        public TEntity FindOne(int id)
+        {
+            return context.Set<TEntity>().Find(id);
         }
 
         public TEntity Update(TEntity entity)
@@ -39,11 +53,6 @@ namespace Base.Services.Base
             context.Entry(entity).State = EntityState.Modified;
             context.SaveChanges();
             return entity;
-        }
-
-        public TEntity Get(int id)
-        {
-            return context.Set<TEntity>().Find(id);
         }
 
         public TEntity Delete(int id)
@@ -56,6 +65,15 @@ namespace Base.Services.Base
             context.Set<TEntity>().Remove(entity);
             context.SaveChanges();
             return entity;
+        }
+
+        public List<TEntity> Deletes(int[] ids)
+        {
+            var selectedItems = context.Set<TEntity>()
+                .Where(item => ids.Contains((int)item.GetType().GetProperty("Id").GetValue(item))).ToList();
+            context.Set<TEntity>().RemoveRange(selectedItems);
+            context.SaveChanges();
+            return selectedItems;
         }
     }
 }

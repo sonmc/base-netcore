@@ -1,4 +1,4 @@
-﻿using Base.Application.UseCase.User.Crud;
+﻿using Base.Application.UseCases;
 using Base.Services.Base;
 using Base.Utils;
 using Xunit;

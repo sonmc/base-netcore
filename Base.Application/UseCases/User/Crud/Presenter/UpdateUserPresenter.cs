@@ -1,4 +1,4 @@
-﻿namespace Base.Application.UseCase.User.Crud
+﻿namespace Base.Application.UseCases
 {
     public class UpdateUserPresenter
     {

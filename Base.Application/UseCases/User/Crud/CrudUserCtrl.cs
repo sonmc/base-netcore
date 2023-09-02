@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Base.Services.Base;
+using Base.Services;
 
-namespace Base.Application.UseCase.User.Crud
+namespace Base.Application.UseCases
 {
     [Authorize]
     [ApiController]
@@ -61,9 +62,9 @@ namespace Base.Application.UseCase.User.Crud
         }
 
         [HttpDelete(Name = "DeleteUser_1")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int[] ids)
         {
-            Response response = workFlow.Delete(id);
+            Response response = workFlow.Deletes(ids);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();

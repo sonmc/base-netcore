@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Base.Utils;
 using Base.Services.Base;
 using Microsoft.AspNetCore.Authorization;
+using Base.Services;
 
-namespace Base.Application.UseCase.Auth
+namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api/auth")]

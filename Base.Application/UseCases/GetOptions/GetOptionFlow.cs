@@ -1,8 +1,9 @@
-﻿using Base.Application.UseCase; 
+﻿
+using Base.Services;
 using Base.Services.Base;
 using Base.Utils;
 
-namespace Base.Application.UseCases.GetOptions
+namespace Base.Application.UseCases
 {
     public class GetOptionFlow
     {
@@ -14,7 +15,7 @@ namespace Base.Application.UseCases.GetOptions
 
         public Response GetOptions()
         {
-            var users = uow.Users.GetAll();
+            var users = uow.Users.FindAll();
             return new Response(Message.SUCCESS, users);
         }
 

@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Base.Services.Base;
+using Base.Services;
 
-namespace Base.Application.UseCase.SyncAllPerm
+namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api/sync-all-perm")]

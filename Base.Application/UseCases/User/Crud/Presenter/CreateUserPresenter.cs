@@ -2,15 +2,15 @@
 using Base.Core.Schemas;
 using System.ComponentModel.DataAnnotations; 
 
-namespace Base.Application.UseCase.User.Crud
+namespace Base.Application.UseCases
 {
     public class CreateUserPresenter
     {
         [Required]
         public string Username { get; set; } 
-
+        public string? Email { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string GroupIds { get; set; }
     }
 
     public class CreateUserMapping : Profile

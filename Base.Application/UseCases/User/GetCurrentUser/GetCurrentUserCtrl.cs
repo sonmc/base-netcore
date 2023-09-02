@@ -1,8 +1,9 @@
 ﻿using Base.Utils;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
 using Base.Services.Base;
+using Base.Services;
 
-namespace Base.Application.UseCase.User.Crud
+namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api/users")]
@@ -28,6 +29,6 @@ namespace Base.Application.UseCase.User.Crud
                 return Unauthorized();
             }
             return Ok(response.Result);
-        } 
+        }
     }
 }

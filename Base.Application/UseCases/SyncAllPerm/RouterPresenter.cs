@@ -1,4 +1,4 @@
-﻿namespace Base.Application.UseCase.SyncAllPerm
+﻿namespace Base.Application.UseCases
 {
     public class RouterPresenter
     {

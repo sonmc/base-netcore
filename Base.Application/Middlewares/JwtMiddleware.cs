@@ -59,7 +59,7 @@ namespace Base.Application.Middleware
             var jwtToken = (JwtSecurityToken)validatedToken;
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
             int id = Int32.Parse(userCredentialString);
-            UserSchema user = uow.Users.Get(id);
+            UserSchema user = uow.Users.FindOne(id);
             if (user != null)
             {
                 context.Items["User"] = user;

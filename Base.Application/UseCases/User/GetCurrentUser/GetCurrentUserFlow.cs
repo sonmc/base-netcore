@@ -1,8 +1,9 @@
 ﻿using Base.Core.Schemas;
 using Base.Utils;
 using Base.Services.Base;
+using Base.Services;
 
-namespace Base.Application.UseCase.User
+namespace Base.Application.UseCases
 {
 
     public class GetCurrentUserFlow
@@ -21,33 +22,8 @@ namespace Base.Application.UseCase.User
             {
                 return new Response(Message.ERROR, null);
             } 
-            UserSchema user = uow.Users.Get(id);
+            UserSchema user = uow.Users.FindOne(id);
             return new Response(Message.SUCCESS, user);
         }
-
-        public Response List()
-        {
-            var users = uow.Users.GetAll();
-            return new Response(Message.SUCCESS, users);
-        }
-
-        public async Task<Response> Create(UserSchema user)
-        {
-            var result =  uow.Users.Add(user); 
-            return new Response(Message.SUCCESS, result);
-        }
-
-        public async Task<Response> Update(UserSchema user)
-        {
-            var result = uow.Users.Update(user);
-            return new Response(Message.SUCCESS, result);
-        }
-
-        public Response Delete(int id)
-        {
-            var result = uow.Users.Delete(id); 
-            return new Response(Message.SUCCESS, result);
-        }
-
     }
 }

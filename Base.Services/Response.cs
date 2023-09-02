@@ -1,4 +1,4 @@
-﻿namespace Base.Application.UseCase
+﻿namespace Base.Services
 { 
     public class Response
     {

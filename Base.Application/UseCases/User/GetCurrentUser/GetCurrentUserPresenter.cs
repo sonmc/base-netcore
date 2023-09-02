@@ -1,6 +1,6 @@
 ﻿using Base.Core.Schemas;
 
-namespace Base.Application.UseCases.User.GetCurrentUser
+namespace Base.Application.UseCases
 {
     public class GetCurrentUserPresenter
     {

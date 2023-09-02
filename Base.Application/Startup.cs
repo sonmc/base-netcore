@@ -4,7 +4,6 @@ using Base.Utils;
 using Base.Application.Middleware;
 using Base.Application.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Base.Services.Base;

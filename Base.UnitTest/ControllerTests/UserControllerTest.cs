@@ -1,5 +1,5 @@
 ﻿
-using Base.Application.UseCase.User.Crud;
+using Base.Application.UseCases;
 using Base.Services.Base;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ namespace Base.UnitTest.ControllerTest
         {
             /// Arrange
             var uow = new Mock<IUnitOfWork>();
-            uow.Setup(_ => _.Users.GetAll()).Returns(UserMockData.GetSampleUser());
+            uow.Setup(_ => _.Users.FindAll()).Returns(UserMockData.GetSampleUser());
             var sut = new CrudUserCtrl(null);
 
             /// Act

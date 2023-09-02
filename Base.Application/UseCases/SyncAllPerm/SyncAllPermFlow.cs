@@ -1,9 +1,10 @@
 ﻿
 using Base.Core.Schemas;
+using Base.Services;
 using Base.Services.Base;
 using Base.Utils;
 
-namespace Base.Application.UseCase.SyncAllPerm
+namespace Base.Application.UseCases
 {
     public class SyncAllPermFlow
     {
@@ -24,7 +25,7 @@ namespace Base.Application.UseCase.SyncAllPerm
 
         private List<GroupSchema> CreateGroupPerm(List<PermSchema> perms)
         {
-            List<GroupSchema> groups = uow.Groups.GetAll();
+            List<GroupSchema> groups = uow.Groups.FindAll();
             List<GroupPerm> groupsPerms = new();
             foreach (var perm in perms)
             {
@@ -64,7 +65,7 @@ namespace Base.Application.UseCase.SyncAllPerm
         private void AddUserToGroup(List<GroupSchema> groups)
         {
             List<UsersGroups> usersGroups = new List<UsersGroups>();
-            List<UserSchema> users = uow.Users.GetAll();
+            List<UserSchema> users = uow.Users.FindAll();
             foreach (var user in users)
             {
                 foreach (var group in groups)

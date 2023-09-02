@@ -3,8 +3,9 @@ using System.Text;
 using Base.Utils;
 using Base.Core.Schemas;
 using Base.Services.Base;
+using Base.Services;
 
-namespace Base.Application.UseCase.Auth
+namespace Base.Application.UseCases
 {
     public class AuthFlow
     {
@@ -38,7 +39,7 @@ namespace Base.Application.UseCase.Auth
             var jwtToken = tokenHandler.ReadJwtToken(accessToken);
             var userCredentialString = jwtToken.Claims.First(x => x.Type == "id").Value;
             int userId = Int32.Parse(userCredentialString);
-            UserSchema user = uow.Users.Get(userId); 
+            UserSchema user = uow.Users.FindOne(userId); 
             bool isMatched = user.HashRefreshToken.Equals(refreshToken);
             if (isMatched)
             {
