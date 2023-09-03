@@ -1,6 +1,5 @@
 ﻿using Base.Core;
 using Base.Core.Schemas;
-using System.Diagnostics;
 
 namespace Base.Services
 {
@@ -9,7 +8,7 @@ namespace Base.Services
         UserSchema SetRefreshToken(string refreshToken, int userId);
         UserSchema UpdateLoginTime(int userId);
         List<UserSchema> Get(string name);
-        bool CheckPermissionAction(int user, string endPoint);
+        bool CheckPermission(int user, string module, string action);
     }
 
 
@@ -44,18 +43,14 @@ namespace Base.Services
             return users;
         }
 
-        public bool CheckPermissionAction(int userId, string endPoint)
+        public bool CheckPermission(int userId, string module, string action)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
             PermSchema perm = (from p in context.Perms
                                join gp in context.GroupsPerms on p.Id equals gp.PermId
                                join g in context.Groups on gp.GroupId equals g.Id
                                join ug in context.UsersGroups on g.Id equals ug.GroupId
-                               where ug.UserId == userId && p.Action == endPoint
+                               where ug.UserId == userId && p.Action == action && p.Module == module
                                select p).FirstOrDefault();
-            sw.Stop();
 
             return perm != null;
         }

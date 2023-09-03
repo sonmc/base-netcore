@@ -29,6 +29,7 @@ namespace Base.Application.UseCases
         public Response List()
         {
             var users = uow.Users.FindAll();
+            users = users.Where(u => u.Id != UserRule.ADMIN_ID).ToList();
             return new Response(Message.SUCCESS, users);
         }
 
@@ -45,7 +46,7 @@ namespace Base.Application.UseCases
             return new Response(Message.SUCCESS, result);
         }
 
-        public Response Deletes(int[] ids)
+        public async Task<Response> Deletes(int[] ids)
         {
             var result = uow.Users.Deletes(ids);
             return new Response(Message.SUCCESS, result);

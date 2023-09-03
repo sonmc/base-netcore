@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.WebSockets;
 
 namespace Base.Services
 {
@@ -69,8 +70,8 @@ namespace Base.Services
 
         public List<TEntity> Deletes(int[] ids)
         {
-            var selectedItems = context.Set<TEntity>()
-                .Where(item => ids.Contains((int)item.GetType().GetProperty("Id").GetValue(item))).ToList();
+            var entities = context.Set<TEntity>().AsEnumerable();
+            var selectedItems = entities.Where(item => ids.Contains((int)item.GetType().GetProperty("Id").GetValue(item))).ToList();
             context.Set<TEntity>().RemoveRange(selectedItems);
             context.SaveChanges();
             return selectedItems;

@@ -61,7 +61,7 @@ namespace Base.Application.UseCases
         [HttpDelete(Name = "DeleteUser_1")]
         public async Task<IActionResult> Delete(int[] ids)
         {
-            Response response = workFlow.Deletes(ids);
+            Response response = await workFlow.Deletes(ids);
             if (response.Status == Message.ERROR)
             {
                 return BadRequest();

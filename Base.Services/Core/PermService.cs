@@ -6,7 +6,6 @@ namespace Base.Services
 
     public interface IPerm : IBaseService<PermSchema>
     {
-        List<PermSchema> Creates(List<PermSchema> perms);
     }
 
     public class PermService : BaseService<PermSchema, DataContext>, IPerm
@@ -18,11 +17,5 @@ namespace Base.Services
             context = _ctx;
         }
 
-        public List<PermSchema> Creates(List<PermSchema> perms)
-        {
-            context.Perms.AddRange(perms);
-            context.SaveChanges();
-            return perms;
-        }
     }
 }

@@ -6,7 +6,6 @@ namespace Base.Services
 
     public interface IUserGroup : IBaseService<UsersGroups>
     {
-        List<UsersGroups> Creates(List<UsersGroups> usersGroups);
     }
 
     public class UserGroupService : BaseService<UsersGroups, DataContext>, IUserGroup
@@ -16,13 +15,6 @@ namespace Base.Services
         public UserGroupService(DataContext _ctx) : base(_ctx)
         {
             context = _ctx;
-        }
-
-        public List<UsersGroups> Creates(List<UsersGroups> usersGroups)
-        {
-            context.UsersGroups.AddRange(usersGroups);
-            context.SaveChanges();
-            return usersGroups;
         }
     }
 }

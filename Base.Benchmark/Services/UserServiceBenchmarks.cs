@@ -22,8 +22,9 @@ namespace BenchmarkService.Services
         public bool CheckPermissionS1Benchmark()
         {
             int userId = 1;
-            string apiEndpoint = "users";
-            return userService.CheckPermissionAction(userId, apiEndpoint);
+            string module = "CrudUserCtrl";
+            string action = "users";
+            return userService.CheckPermission(userId, module, action);
         }
 
     }
