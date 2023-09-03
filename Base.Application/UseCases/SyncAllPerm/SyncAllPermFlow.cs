@@ -35,13 +35,13 @@ namespace Base.Application.UseCases
                         GroupPerm gp = new GroupPerm();
                         gp.Perm = perm;
                         gp.Group = groups[i];
-                        groupsPerms.Add(gp);
+                        GroupPerm groupPerm = uow.GroupsPerms.VerifyGroupPerm(gp);
+                        if (groupPerm == null) { continue; }
+                        groupsPerms.Add(groupPerm);
                     }
                 }
-
             }
             uow.GroupsPerms.Creates(groupsPerms);
-
             return groups;
         }
 
@@ -55,8 +55,14 @@ namespace Base.Application.UseCases
                 permSchema.Title = StrUtil.ConvertCamelToTitle(router.Name.Split('_')[0]);
                 permSchema.ProfileTypes = "[" + router.Name.Split('_')[1] + "]";
                 permSchema.Module = router.Module;
-                perms.Add(permSchema);
+                PermSchema permission = uow.Perms.VerifyPerms(permSchema);
+                if (permission == null)
+                {
+                    continue;
+                }
+                perms.Add(permission);
             }
+
             perms = uow.Perms.Creates(perms);
             return perms;
         }
@@ -74,7 +80,9 @@ namespace Base.Application.UseCases
                         UsersGroups ug = new UsersGroups();
                         ug.User = user;
                         ug.Group = group;
-                        usersGroups.Add(ug);
+                        UsersGroups userGroup = uow.UsersGroups.VerityUserGroup(ug);
+                        if (userGroup == null) { continue; }
+                        usersGroups.Add(userGroup);
                     }
                 }
             }

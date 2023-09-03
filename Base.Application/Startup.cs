@@ -1,6 +1,4 @@
-﻿
-using Base.Core;
-using Base.Utils;
+﻿using Base.Utils;
 using Base.Application.Middleware;
 using Base.Application.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
