@@ -8,11 +8,11 @@ namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api/users")]
-    public class CrudUserCtrl : ControllerBase
+    public class CrudUserController : ControllerBase
     {
         private readonly IMapper _mapper;
         CrudUserFlow workFlow;
-        public CrudUserCtrl(IMapper mapper)
+        public CrudUserController(IMapper mapper)
         {
             _mapper = mapper;
             workFlow = new CrudUserFlow(new UnitOfWork());

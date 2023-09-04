@@ -8,11 +8,11 @@ namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api/groups")]
-    public class CrudGroupCtrl : ControllerBase
+    public class CrudGroupController : ControllerBase
     {
         private readonly IMapper _mapper;
         CrudGroupFlow workFlow;
-        public CrudGroupCtrl(IMapper mapper)
+        public CrudGroupController(IMapper mapper)
         {
             _mapper = mapper;
             workFlow = new CrudGroupFlow(new UnitOfWork());

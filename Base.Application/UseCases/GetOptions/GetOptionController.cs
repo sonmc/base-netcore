@@ -6,10 +6,10 @@ namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api")]
-    public class GetOptionCtrl : ControllerBase
+    public class GetOptionController : ControllerBase
     {
         GetOptionFlow workFlow;
-        public GetOptionCtrl()
+        public GetOptionController()
         {
             workFlow = new GetOptionFlow(new UnitOfWork());
         }

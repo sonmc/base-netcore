@@ -6,10 +6,10 @@ namespace Base.Application.UseCases
 {
     [ApiController]
     [Route("api/users")]
-    public class GetCurrentUserCtrl : ControllerBase
+    public class GetCurrentUserController : ControllerBase
     {
         GetCurrentUserFlow workFlow;
-        public GetCurrentUserCtrl()
+        public GetCurrentUserController()
         {
             workFlow = new GetCurrentUserFlow(new UnitOfWork());
         }

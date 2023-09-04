@@ -17,7 +17,7 @@ namespace Base.UnitTest.ControllerTest
             /// Arrange
             var uow = new Mock<IUnitOfWork>();
             uow.Setup(_ => _.Users.FindAll()).Returns(UserMockData.GetSampleUser());
-            var sut = new CrudUserCtrl(null);
+            var sut = new CrudUserController(null);
 
             /// Act
             var result = (OkObjectResult)await sut.List();
