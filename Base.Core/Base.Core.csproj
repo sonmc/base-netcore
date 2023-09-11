@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Base.Business\Base.Business.csproj" />
     <ProjectReference Include="..\Base.Utils\Base.Utils.csproj" />
   </ItemGroup>

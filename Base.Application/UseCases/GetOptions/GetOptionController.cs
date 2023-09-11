@@ -14,7 +14,7 @@ namespace Base.Application.UseCases
             workFlow = new GetOptionFlow(new UnitOfWork());
         }
 
-        [HttpGet("options", Name = "OPTIONS_")]
+        [HttpGet("options", Name = "Options_")]
         public IActionResult GetOption()
         {
             Response response = workFlow.GetOptions();

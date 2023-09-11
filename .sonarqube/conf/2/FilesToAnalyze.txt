@@ -1,0 +1,13 @@
+﻿D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Database\Seeding.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\DataContext.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\ExceptionHandle\ExceptionType.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\ExceptionHandle\MyCustomException.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Migrations\20230902165610_Init.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Migrations\20230902165610_Init.Designer.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Migrations\DataContextModelSnapshot.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Schemas\Core\BaseSchema.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Schemas\Core\GroupPerm.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Schemas\Core\GroupSchema.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Schemas\Core\PermSchema.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Schemas\Core\UserSchema.cs
+D:\ProjectStudy\ProjectBase\base-netcore\Base.Core\Schemas\Core\UsersGroups.cs

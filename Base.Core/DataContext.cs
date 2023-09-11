@@ -28,14 +28,15 @@ namespace Base.Core
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = "server=localhost;port=3306;database=base_core_v4;uid=root;password=123456";
+                var connectionString = "server=localhost;port=3306;database=base_core_v3;uid=root;password=123456";
                 optionsBuilder.UseMySql(connectionString, ServerVersion.Parse("8.0.28-mysql"),
                     builder =>
                     {
                         builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                     });
+                 
                 base.OnConfiguring(optionsBuilder);
-            } 
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
