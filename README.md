@@ -4,7 +4,8 @@ $ dotnet run
 
 # Migration cd Base.Core
 
--   dotnet ef migrations add Init
+-   set MIGRATIONS_RUN=true
+    dotnet ef migrations add init -s ../Base.App -p ../Base.Core
 -   dotnet ef database update
 
     password default: 

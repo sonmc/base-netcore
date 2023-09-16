@@ -10,7 +10,7 @@ namespace Base.Core.Schemas
         public int UserGroupId { get; set; }
         public int GroupId { get; set; }
         public int UserId { get; set; }
-        public UserSchema User { get; set; }
-        public GroupSchema Group { get; set; }
+        public User User { get; set; }
+        public Group Group { get; set; }
     }
 }

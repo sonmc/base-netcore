@@ -1,2 +1,0 @@
-﻿D:\ProjectStudy\ProjectBase\base-netcore\Base.Business\ActionLogics\Actions.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Business\Rules\UserRule.cs

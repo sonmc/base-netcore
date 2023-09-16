@@ -3,16 +3,16 @@ using Base.Core.Schemas;
 
 namespace Base.Services
 {
-    public interface IUser : IBaseService<UserSchema>
+    public interface IUser : IBaseService<User>
     {
-        UserSchema SetRefreshToken(string refreshToken, int userId);
-        UserSchema UpdateLoginTime(int userId);
-        List<UserSchema> Get(string name);
+        User SetRefreshToken(string refreshToken, int userId);
+        User UpdateLoginTime(int userId);
+        List<User> Get(string name);
         bool CheckPermission(int user, string module, string action);
     }
 
 
-    public class UserService : BaseService<UserSchema, DataContext>, IUser
+    public class UserService : BaseService<User, DataContext>, IUser
     {
 
         private readonly DataContext context;
@@ -22,30 +22,30 @@ namespace Base.Services
             context = _ctx;
         }
 
-        public UserSchema UpdateLoginTime(int userId)
+        public User UpdateLoginTime(int userId)
         {
-            UserSchema user = context.Users.Find(userId);
+            User user = context.Users.Find(userId);
             user.LastLogin = DateTime.UtcNow;
             return user;
         }
 
 
-        public UserSchema SetRefreshToken(string refreshToken, int userId)
+        public User SetRefreshToken(string refreshToken, int userId)
         {
-            UserSchema user = context.Users.Find(userId);
+            User user = context.Users.Find(userId);
             user.HashRefreshToken = refreshToken;
             return user;
         }
 
-        public List<UserSchema> Get(string name)
+        public List<User> Get(string name)
         {
-            List<UserSchema> users = context.Users.Where(u => u.UserName.Equals(name)).ToList();
+            List<User> users = context.Users.Where(u => u.UserName.Equals(name)).ToList();
             return users;
         }
 
         public bool CheckPermission(int userId, string module, string action)
         {
-            PermSchema perm = (from p in context.Perms
+            Perm perm = (from p in context.Perms
                                join gp in context.GroupsPerms on p.Id equals gp.PermId
                                join g in context.Groups on gp.GroupId equals g.Id
                                join ug in context.UsersGroups on g.Id equals ug.GroupId

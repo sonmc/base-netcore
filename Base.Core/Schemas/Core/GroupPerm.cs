@@ -12,7 +12,7 @@ namespace Base.Core.Schemas
         public int GroupId { get; set; }
         public int PermId { get; set; }
 
-        public GroupSchema Group { get; set; }
-        public PermSchema Perm { get; set; }
+        public Group Group { get; set; }
+        public Perm Perm { get; set; }
     }
 }

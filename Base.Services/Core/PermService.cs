@@ -3,12 +3,12 @@ using Base.Core.Schemas;
 
 namespace Base.Services
 {
-    public interface IPerm : IBaseService<PermSchema>
+    public interface IPerm : IBaseService<Perm>
     {
-        PermSchema VerifyPerms(PermSchema p);
+        Perm VerifyPerms(Perm p);
     }
 
-    public class PermService : BaseService<PermSchema, DataContext>, IPerm
+    public class PermService : BaseService<Perm, DataContext>, IPerm
     {
         private readonly DataContext context;
         public PermService(DataContext _ctx) : base(_ctx)
@@ -16,7 +16,7 @@ namespace Base.Services
             context = _ctx;
         }
 
-        public PermSchema VerifyPerms(PermSchema p)
+        public Perm VerifyPerms(Perm p)
         {
             var permissions = context.Perms.ToList();
             foreach (var perm in permissions)

@@ -14,18 +14,7 @@ namespace Base.Utils
         public static string REFRESH_TOKEN = "refresh_token";
         public static string SECRET_KEY = "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING";
        
-        public static CookieOptions GetConfigOption()
-        {
-            var cookieOptions = new CookieOptions
-            {
-                Expires = DateTime.UtcNow.AddHours(1),
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.None
-            };
-            return cookieOptions;
-        }
-
+ 
         public static string GenerateAccessToken(int userId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

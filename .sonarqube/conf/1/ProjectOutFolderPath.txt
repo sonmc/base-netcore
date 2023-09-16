@@ -1,1 +1,0 @@
-D:\ProjectStudy\ProjectBase\base-netcore\.sonarqube\out\1

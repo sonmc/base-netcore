@@ -17,11 +17,11 @@ namespace Base.Core.Database
 
         public static void SeedGroup(ModelBuilder modelBuilder)
         {
-            GroupSchema admin = new GroupSchema { Id = 1, Title = "Admin", Description = "", ProfileType = RoleType.ADMIN_PROFILE };
-            GroupSchema staff = new GroupSchema { Id = 2, Title = "Staff", Description = "", ProfileType = RoleType.STAFF_PROFILE };
+            Group admin = new Group { Id = 1, Title = "Admin", Description = "", ProfileType = RoleType.ADMIN_PROFILE };
+            Group staff = new Group { Id = 2, Title = "Staff", Description = "", ProfileType = RoleType.STAFF_PROFILE };
 
-            modelBuilder.Entity<GroupSchema>().HasData(admin);
-            modelBuilder.Entity<GroupSchema>().HasData(staff);
+            modelBuilder.Entity<Group>().HasData(admin);
+            modelBuilder.Entity<Group>().HasData(staff);
         }
 
 
@@ -29,11 +29,11 @@ namespace Base.Core.Database
         {
             string defaultPassword = JwtUtil.MD5Hash(UserRule.DEFAULT_PASSWORD);
 
-            UserSchema userAdmin = new UserSchema { Id = 1, UserName = "admin", Password = defaultPassword, Email = "admin@gmail.com", GroupIds = RoleType.ADMIN_PROFILE };
-            modelBuilder.Entity<UserSchema>().HasData(userAdmin);
+            User userAdmin = new User { Id = 1, UserName = "admin", Password = defaultPassword, Email = "admin@gmail.com", GroupIds = RoleType.ADMIN_PROFILE };
+            modelBuilder.Entity<User>().HasData(userAdmin);
 
-            UserSchema userStaff = new UserSchema { Id = 2, UserName = "staff", Password = defaultPassword, Email = "staff@gmail.com", GroupIds = RoleType.STAFF_PROFILE };
-            modelBuilder.Entity<UserSchema>().HasData(userStaff);
+            User userStaff = new User { Id = 2, UserName = "staff", Password = defaultPassword, Email = "staff@gmail.com", GroupIds = RoleType.STAFF_PROFILE };
+            modelBuilder.Entity<User>().HasData(userStaff);
         }
     }
 }

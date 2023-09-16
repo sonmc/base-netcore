@@ -4,11 +4,11 @@ namespace Base.UnitTest.ServiceTest.MockData
 {
     public class UserMockData
     {
-        public static List<UserSchema> GetSampleUser()
+        public static List<User> GetSampleUser()
         {
-            List<UserSchema> output = new List<UserSchema>
+            List<User> output = new List<User>
             {
-                new UserSchema
+                new User
                 {
                     UserName = "Jhon",
                     Email = "jhon@gmail.com",

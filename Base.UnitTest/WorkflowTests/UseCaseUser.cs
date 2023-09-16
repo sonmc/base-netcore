@@ -1,6 +1,8 @@
-﻿using Base.Application.UseCases;
+﻿using Base.App.UseCases;
 using Base.Services;
+using Base.UnitTest.ControllerTest;
 using Base.Utils;
+using Moq;
 using Xunit;
 
 namespace Base.UnitTest.WorkflowTest
@@ -13,7 +15,9 @@ namespace Base.UnitTest.WorkflowTest
         public async Task GetAll_WithCorrectCondition_ResultDataAndStatusSuccess()
         {
             /// Arrange
-            var flow = new CrudUserFlow(new UnitOfWork());
+            var uow = new Mock<IUnitOfWork>();
+            uow.Setup(_ => _.Users.FindAll()).Returns(UserMockData.GetSampleUser());
+            var flow = new CrudUserFlow((IUnitOfWork)uow);
 
             /// Act
             var result = flow.List();

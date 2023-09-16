@@ -1,7 +1,0 @@
-﻿D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\BaseService.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\GroupPermService.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\GroupService.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\PermService.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\UnitOfWork.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\UserGroupService.cs
-D:\ProjectStudy\ProjectBase\base-netcore\Base.Services\Core\UserService.cs

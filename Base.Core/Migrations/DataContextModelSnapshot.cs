@@ -16,31 +16,10 @@ namespace Base.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Base.Core.Schemas.GroupPerm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PermId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("PermId");
-
-                    b.ToTable("GroupsPerms");
-                });
-
-            modelBuilder.Entity("Base.Core.Schemas.GroupSchema", b =>
+            modelBuilder.Entity("Base.Core.Schemas.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +58,28 @@ namespace Base.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Base.Core.Schemas.PermSchema", b =>
+            modelBuilder.Entity("Base.Core.Schemas.GroupPerm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("PermId");
+
+                    b.ToTable("GroupsPerms");
+                });
+
+            modelBuilder.Entity("Base.Core.Schemas.Perm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +106,7 @@ namespace Base.Core.Migrations
                     b.ToTable("Perms");
                 });
 
-            modelBuilder.Entity("Base.Core.Schemas.UserSchema", b =>
+            modelBuilder.Entity("Base.Core.Schemas.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,13 +185,13 @@ namespace Base.Core.Migrations
 
             modelBuilder.Entity("Base.Core.Schemas.GroupPerm", b =>
                 {
-                    b.HasOne("Base.Core.Schemas.GroupSchema", "Group")
+                    b.HasOne("Base.Core.Schemas.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Base.Core.Schemas.PermSchema", "Perm")
+                    b.HasOne("Base.Core.Schemas.Perm", "Perm")
                         .WithMany()
                         .HasForeignKey("PermId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -204,13 +204,13 @@ namespace Base.Core.Migrations
 
             modelBuilder.Entity("Base.Core.Schemas.UsersGroups", b =>
                 {
-                    b.HasOne("Base.Core.Schemas.GroupSchema", "Group")
+                    b.HasOne("Base.Core.Schemas.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Base.Core.Schemas.UserSchema", "User")
+                    b.HasOne("Base.Core.Schemas.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

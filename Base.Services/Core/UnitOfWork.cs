@@ -28,9 +28,9 @@ namespace Base.Services
         public IUserGroup UsersGroups { get; }
 
 
-        public UnitOfWork()
+        public UnitOfWork(DataContext _dbContext)
         {
-            dbContext = new DataContext(); 
+            dbContext = _dbContext; 
             Users = new UserService(dbContext);
             Perms = new PermService(dbContext);
             Groups = new GroupService(dbContext);

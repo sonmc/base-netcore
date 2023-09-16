@@ -4,11 +4,11 @@ using Base.Core.Schemas;
 namespace Base.Services
 {
 
-    public interface IGroup : IBaseService<GroupSchema>
+    public interface IGroup : IBaseService<Group>
     {
     }
 
-    public class GroupService : BaseService<GroupSchema, DataContext>, IGroup
+    public class GroupService : BaseService<Group, DataContext>, IGroup
     {
 
         private readonly DataContext context;
