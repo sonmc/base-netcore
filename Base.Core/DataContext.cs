@@ -1,6 +1,4 @@
-﻿
-using Base.Core.Database;
-using Base.Core.Schemas;
+﻿using Base.Core.Schemas;
 using Microsoft.EntityFrameworkCore;
 
 namespace Base.Core
@@ -31,11 +29,6 @@ namespace Base.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var isMigrationsRun = Environment.GetEnvironmentVariable("MIGRATIONS_RUN");
-            if (isMigrationsRun != null && isMigrationsRun.Equals("true", StringComparison.OrdinalIgnoreCase))
-            {
-                Seeding.Init(modelBuilder);
-            }
             base.OnModelCreating(modelBuilder);
         }
     }

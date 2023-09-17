@@ -8,19 +8,19 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace Base.App.UseCases
 {
     [ApiController]
-    [Route("api/sync-all-perm")]
-    public class SyncAllPermController : ControllerBase
+    [Route("api/seed")]
+    public class SeedController : ControllerBase
     {
-        SyncAllPermFlow flow;
+        SeedFlow flow;
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
-        public SyncAllPermController(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IUnitOfWork uow)
+        public SeedController(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IUnitOfWork uow)
         {
-            flow = new SyncAllPermFlow(uow);
+            flow = new SeedFlow(uow);
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
         }
 
         [HttpGet(Name = "SyncAllPerm_")]
-        public IActionResult SyncAllPerm()
+        public async Task<IActionResult> SyncAllPerm()
         {
             var routes = _actionDescriptorCollectionProvider.ActionDescriptors.Items
                .Where(ad => ad.AttributeRouteInfo != null)
@@ -32,8 +32,7 @@ namespace Base.App.UseCases
                    Template = x.AttributeRouteInfo.Template ?? "n/a",
                    Method = x.ActionConstraints?.OfType<HttpMethodActionConstraint>().FirstOrDefault()?.HttpMethods.First()
                }).ToList();
-            Response response = flow.SyncAllPerm(routes);
-
+            Response response = await flow.Seed(routes);
             return Ok(response);
         }
     }

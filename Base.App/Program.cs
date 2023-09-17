@@ -70,11 +70,16 @@ services.AddAuthentication(x =>
     };
 });
 services.AddDbContext<DataContext>(
-options =>
-{
-    options.UseMySql(builder.Configuration.GetConnectionString("Default"),
-    ServerVersion.Parse("8.0.23-mysql"));
-});
+    options =>
+    {
+        options.UseMySql(
+            builder.Configuration.GetConnectionString("Default"),
+            ServerVersion.Parse("8.0.23-mysql"),
+            mySqlOptions =>
+            {
+                mySqlOptions.MigrationsAssembly("Base.App");
+            });
+    });
 #endregion
 
 var app = builder.Build();

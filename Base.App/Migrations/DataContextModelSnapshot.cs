@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Base.Core.Migrations
+namespace Base.App.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -40,22 +40,6 @@ namespace Base.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "",
-                            ProfileType = "[1]",
-                            Title = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "",
-                            ProfileType = "[2]",
-                            Title = "Staff"
-                        });
                 });
 
             modelBuilder.Entity("Base.Core.Schemas.GroupPerm", b =>
@@ -142,24 +126,6 @@ namespace Base.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "admin@gmail.com",
-                            GroupIds = "[1]",
-                            Password = "e10adc3949ba59abbe56e057f20f883e",
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "staff@gmail.com",
-                            GroupIds = "[2]",
-                            Password = "e10adc3949ba59abbe56e057f20f883e",
-                            UserName = "staff"
-                        });
                 });
 
             modelBuilder.Entity("Base.Core.Schemas.UsersGroups", b =>

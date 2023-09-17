@@ -4,12 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
-namespace Base.Core.Migrations
+namespace Base.App.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -136,24 +134,6 @@ namespace Base.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.InsertData(
-                table: "Groups",
-                columns: new[] { "Id", "Description", "ProfileType", "Title" },
-                values: new object[,]
-                {
-                    { 1, "", "[1]", "Admin" },
-                    { 2, "", "[2]", "Staff" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "CreatedAt", "Email", "GroupIds", "HashRefreshToken", "LastLogin", "Password", "UpdatedAt", "UserName" },
-                values: new object[,]
-                {
-                    { 1, null, "admin@gmail.com", "[1]", null, null, "e10adc3949ba59abbe56e057f20f883e", null, "admin" },
-                    { 2, null, "staff@gmail.com", "[2]", null, null, "e10adc3949ba59abbe56e057f20f883e", null, "staff" }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupsPerms_GroupId",
