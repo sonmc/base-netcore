@@ -1,15 +1,12 @@
 ﻿# development cd Base.Application
 
-$ dotnet run
-
 # Migration cd Base.Core
 
--   set MIGRATIONS_RUN=true
-    dotnet ef migrations add init -s ../Base.App -p ../Base.Core
+-   dotnet ef migrations add init
 -   dotnet ef database update
-
-    password default: 
-- Ping to api "api/sync-all-perm" to capture all perm
+-   dotnet run
+-   password default: 
+-   Ping to api "api/seed" to capture all perm
 
 # Clean architect
 
@@ -45,37 +42,41 @@ It potential become big ball of mugs because it can do almost everything. So use
 
 # Project structure
 ```
-├───Base.Application
+├───Base.App
 │   ├───Helpers
 │   ├───Middlewares
 │   ├───Properties
 │   └───UseCases
 │       ├───Auth
 │       ├───GetOptions
-│       ├───SyncAllPerm
+│       ├───Group
+│       │   └───Crud
+│       │       └───Presenter
+│       ├───Seed
 │       └───User
 │           ├───Crud
 │           │   └───Presenter
 │           └───GetCurrentUser
+├───Base.Benchmark
+│   ├───BenchmarkDotNet.Artifacts
+│   │   └───results
+│   └───Services
 ├───Base.Business
-│   ├───ActionLogics
-│   └───Rules
+│   ├───Logic
+│   └───Rule
 ├───Base.Core
-│   ├───Database
 │   ├───ExceptionHandle
-│   ├───Migrations
+│   ├───Helpers
 │   └───Schemas
+│       └───Core
 ├───Base.Services
-│   ├───Base
+│   └───Core
 ├───Base.UnitTest
 │   ├───ControllerTests
 │   │   └───MockData
 │   ├───ServiceTests
 │   │   └───MockData
 │   └───WorkflowTests
-├───Base.Utils
-└───Base.Benchmark
-    ├───Base.BenchmarkDotNet.Artifacts
-    │   └───results
-    └───Services
+└───Base.Utils
+    └───Core
 ```
